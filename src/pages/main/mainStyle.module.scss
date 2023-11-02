@@ -1,0 +1,83 @@
+%img {
+  background-position: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  width: 1600px;
+  height: 500px;
+  z-index: 0;
+}
+%btn {
+  background-color: #f7f8fa;
+  border: 1px solid #e52e6b;
+  border-radius: 50%;
+  margin: 0px 10px;
+  &:hover {
+    background-color: #e7bac9;
+    cursor: pointer;
+  }
+}
+.mainBox {
+  margin: 0 auto;
+  width: 1637px;
+  .sliderBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .prev {
+      width: 55px;
+      height: 50px;
+      margin-right: 20px;
+      @extend %btn
+    }
+    .next {
+      width: 55px;
+      height: 50px;
+      margin-left: 20px;
+      @extend %btn;
+    }
+    .slider {
+      overflow: hidden;
+      width: 1600px;
+      height: 600px;
+      .slider_inner {
+        width: 9000px;
+        border-radius: 15px;
+        height: 600px;
+        position: relative;
+        display: flex;
+        left: 0;
+        transition: all ease 0.5s;
+
+        .example1 {
+          background-image: url("https://cdn21vek.by/img/tmp/b/650981e5b8bfa1920x634-%D1%81%D1%82%D0%B8%D1%80%D0%B0%D0%BB%D0%BA%D0%B0.jpg");
+          @extend %img;
+        }
+        .example2 {
+          background-image: url("https://cdn21vek.by/img/tmp/b/6523f72bc3bc11920%D1%85634.jpg");
+          @extend %img;
+        }
+        .example3 {
+          background-image: url("https://cdn21vek.by/img/tmp/b/6526dbbdd64d91920x634_%D1%80%D0%B0%D1%81%D0%BF%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0_30.jpg");
+          @extend %img;
+        }
+        .example4 {
+          background-image: url("https://cdn21vek.by/img/tmp/b/651addd15ea881920x634-lg-%D1%81%D1%82%D0%B8%D1%80%D0%BA%D0%B0.jpg");
+          @extend %img;
+        }
+        .example5 {
+          background-image: url("	https://cdn21vek.by/img/tmp/b/652689b6d6ebc1920x634.jpg");
+          @extend %img;
+        }
+        .example6 {
+          background-image: url("https://cdn21vek.by/img/tmp/b/64e4760b8d5931920%D1%85634_%D0%AD%D0%9E%D0%A1.jpg");
+          @extend %img;
+        }
+        // .example7 {
+        //   background-image: url("https://cdn21vek.by/img/tmp/b/651addd15ea881920x634-lg-%D1%81%D1%82%D0%B8%D1%80%D0%BA%D0%B0.jpg");
+        //   @extend %img;
+        // }
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+.wrapper {
+  width: 1500px;
+  margin: 0 auto;
+
+  .details {
+    display: flex;
+    padding-top: 50px;
+    justify-content: space-between;
+    .box0 {
+      display: flex;
+      flex-direction: column;
+
+      .playBtn {
+        width: 70px;
+        height: 70px;
+        padding: 10px 10px;
+        background-color: #0072bc;
+        align-items: center;
+        text-align: center;
+        border: none;
+      }
+      .imgBtn {
+        width: 70px;
+        height: 70px;
+        margin-top: 10px;
+      }
+    }
+  }
+}
+.add {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  .favor {
+    border: none;
+    background-color: white;
+    font-size: 18px;
+    align-items: center;
+  }
+  .cart {
+    width: 140px;
+    height: 41px;
+    background-color: #ea1653;
+    color: white;
+    font-size: 17px;
+    border: none;
+    margin-top: 30px;
+    cursor: pointer;
+  }
+  .added {
+    width: 140px;
+
+    background-color: white;
+    color: #ea1653;
+    height: 41px;
+    border: 1px solid #ea1653;
+    margin-top: 30px;
+    cursor: pointer;
+  }
+}
+.moreDetails {
+  padding-top: 40px;
+}

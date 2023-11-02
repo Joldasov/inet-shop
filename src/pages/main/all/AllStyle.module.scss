@@ -1,0 +1,128 @@
+.wrapper {
+  margin: 0 auto;
+  padding-top: 90px;
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    width: 1500px;
+    margin: 0 auto;
+  }
+  .desc {
+    margin-top: 8px;
+    margin-bottom: 32px;
+    width: 1500px;
+    margin: 0 auto;
+    .btn {
+      border: 1px solid gray;
+      background-color: white;
+      padding: 5px 10px;
+      margin-right: 10px;
+      border-radius: 15px;
+      transition: 0.2s;
+      &:hover {
+        border-color: #07c;
+        color: #07c;
+        cursor: pointer;
+      }
+    }
+  }
+}
+.cursor:hover {
+  cursor: pointer;
+}
+.active {
+  color: #07c;
+}
+
+.wrapperInner {
+  display: flex;
+  margin: 20px 0px;
+
+  align-items: center;
+  width: 1600px;
+  .btns {
+    padding: 10px 10px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    outline: none;
+    border: 1px solid gray;
+    border-color: gray;
+  }
+  .can {
+    border: 1px solid #e52e6b;
+  }
+}
+
+.goods_wrapper {
+  .swiper {
+    width: 1494px;
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    .swiper_content {
+      width: 5000px;
+      height: 385px;
+      margin-bottom: 50px;
+      display: flex;
+      left: 0;
+      transition: all ease 0.5s;
+      position: relative;
+      .box {
+        max-height: 406px;
+        height: 100%;
+        max-width: 235px;
+        width: 375px;
+        border-right: 1px solid #ebedf0;
+        border-left: 1px solid #ebedf0;
+        padding: 0px 20px;
+        margin-right: 14px;
+        .imgBox {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+          margin: 0;
+          padding: 0;
+          position: relative;
+          vertical-align: middle;
+          outline: none;
+          border-spacing: 0;
+          padding-top: 24px;
+        }
+      }
+      .navLink {
+        &:hover {
+          color: #e52e6b;
+        }
+      }
+      .btn {
+        width: 140px;
+        height: 41px;
+        background-color: #ea1653;
+        color: white;
+        font-size: 17px;
+        border: none;
+        margin-top: 30px;
+        cursor: pointer;
+        &:hover {
+          cursor: pointer;
+          background-color: #ce3467;
+        }
+      }
+      .added {
+        border-color: #e52e6b;
+        background-color: white;
+        color: #ce3467;
+        // padding: 10px 40px;
+        outline: none;
+        margin-top: 30px;
+        width: 140px;
+        height: 41px;
+      }
+    }
+  }
+}

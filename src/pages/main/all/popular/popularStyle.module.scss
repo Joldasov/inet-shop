@@ -1,0 +1,127 @@
+.textBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  .wathchAll {
+    color: #0068b2;
+    font-size: 18px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+.buttons {
+  .btn {
+    border: 1px solid gray;
+    background-color: white;
+    padding: 5px 10px;
+    margin-right: 10px;
+    border-radius: 15px;
+    transition: 0.2s;
+    &:hover {
+      border-color: #07c;
+      color: #07c;
+      cursor: pointer;
+    }
+
+    
+  }
+}
+.active {
+  color: #07c;
+  border: none;
+}
+.goods {
+  height: 912px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  .box {
+    max-height: 406px;
+    margin: 40px 0px;
+    height: 100%;
+    max-width: 225px;
+    width: 365px;
+    border-right: 1px solid #ebedf0;
+    border-left: 1px solid #ebedf0;
+    padding: 0px 20px;
+    margin-right: 14px;
+    .imgBox {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      vertical-align: middle;
+      outline: none;
+      border-spacing: 0;
+      padding-top: 24px;
+    }
+  }
+  .btn {
+    padding: 0px 0px;
+    background-color: #e52e6b;
+    color: white;
+    border: none;
+    outline: none;
+    padding: 10px 40px;
+    border-radius: 3px;
+    margin-top: 50px;
+    font-size: 17px;
+    &:hover {
+      cursor: pointer;
+      background-color: #ce3467;
+    }
+  }
+  .chosen {
+    border-color: #e52e6b;
+    background-color: white;
+    color: #ce3467;
+    padding: 10px 40px;
+    margin-top: 50px;
+  }
+}
+.show {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+
+  button {
+    padding: 20px 200px;
+    font-weight: 600;
+    font-size: 17px;
+    color: #07c;
+    background-color: white;
+    border-color: #07c;
+    border-radius: 5px;
+    &:hover {
+      background-color: rgb(243, 242, 242);
+      cursor: pointer;
+    }
+    p {
+      color: #07c;
+    }
+  }
+  .hide {
+    display: none;
+  }
+}
+.all {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 70px;
+  p {
+    padding-top: 20px;
+    font-weight: 650;
+    font-size: 18px;
+    color: #07c;
+  }
+}
+.navLink {
+  &:hover {
+    color: #ce3467;
+  }
+}

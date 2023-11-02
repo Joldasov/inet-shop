@@ -1,0 +1,50 @@
+.header {
+  width: 100%;
+  border-bottom: 1px solid #b4b5b8;
+  .headerBox{
+    width: 1500px;
+    margin: 0 auto;
+    padding: 14px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .items{
+        display: flex;
+        justify-content: space-between;
+        p{
+            margin: 0px 10px;
+        }
+        .vibers{
+            margin-left: 5px;
+            padding: 0px 10px;
+            .viber{
+                margin-left: 5px ;
+                margin-right: 13px;
+            }
+            .A{
+                margin-right:  10px;
+            }
+            .dropdown{
+                margin-left: 5px;
+            }
+        }
+        .timer{
+            display: flex;
+            padding-left: 15px;
+            .contactCenter{
+                font-size: 10px;
+                color: gray;
+            }
+        }
+
+    }
+  }
+}
+.telegramSpan{
+    margin-right: 10px;
+}
+.divider{
+    width: 0.2px;
+    height: 28px;
+    border: 0.2px solid gray;
+}
