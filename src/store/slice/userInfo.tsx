@@ -1,18 +1,7 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import  {$authHost}  from "../../services/servise";
-// import axios from "axios";
+import {createSlice } from "@reduxjs/toolkit";
+import { fetchUserInfo } from "../../thunk/userInfoThunk";
 
-export const fetchUserInfo = createAsyncThunk(
-  "Auth/userInfo",
-  async (__, thunkAPI) => {
-    try {
-      const data = await $authHost.get("/users/userInfo", {});
-      return data
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error as Error);
-    }
-  }
-);
+
 export interface registerState {
   error: string;
   isLoading: boolean;
@@ -36,7 +25,7 @@ export const UserInfo = createSlice({
     [fetchUserInfo.fulfilled.type]: (state, action) => {
       state.error = "";
       state.isLoading = false;
-      state.true = action.payload
+      state.true = action.payload;
     },
     [fetchUserInfo.rejected.type]: (state, action) => {
       state.error = action.payload;

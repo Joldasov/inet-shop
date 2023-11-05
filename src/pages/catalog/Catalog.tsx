@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../helpers/helpers";
 import { fetchCatalog } from "../../store/slice/Catalog";
-import { fetchGetSubItems } from "../../store/slice/getSubCategory";
+import { fetchGetSubItems } from "../../thunk/subItemsThunk";
 import { changeDisplayFalse } from "../../store/slice/search";
 import styles from "./catalogStyle.module.scss";
 

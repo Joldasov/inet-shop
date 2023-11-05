@@ -14,19 +14,18 @@ import {
 import type { MenuProps } from "antd";
 import { Dropdown, Input, Space } from "antd";
 import { useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../helpers/helpers";
-import { fetchGetItem } from "../../store/slice/get";
 import {
   addRecent,
   addSearch,
   changeDisplayFalse,
   changeDisplayTrue,
-  fetchSearch,
   reset,
   textClear,
 } from "../../store/slice/search";
 import Accaunt from "../modalWindows/accaunt/accaunt";
+import { fetchSearch } from "../../thunk/searchThunk";
 import styles from "./postStyle.module.scss";
 const PostHeader = () => {
   const [modalActive, setModalActive] = useState<boolean>(false);
@@ -35,7 +34,7 @@ const PostHeader = () => {
   const text = useAppSelector((state) => state.search.text);
   const fulfilled = useAppSelector((state) => state.search.status);
   const isLoading = useAppSelector((state) => state.search.isLoading);
-  
+
   console.log(fulfilled);
   console.log(text);
 
@@ -137,14 +136,17 @@ const PostHeader = () => {
     },
   ];
   const recent = useAppSelector((state) => state.search.recent);
-  const smt = useAppSelector((state) => state.search.smt)
-  console.log(recent);
+  const smt = useAppSelector((state) => state.search.smt);
   return (
     <div className={styles.wrapper}>
       <div className={styles.postWrapper}>
         <div className={styles.postHeader}>
           <div>
-            <NavLink to="/" style={{ textDecoration: "none" }} onClick={() => dispatch(changeDisplayFalse())}>
+            <NavLink
+              to="/"
+              style={{ textDecoration: "none" }}
+              onClick={() => dispatch(changeDisplayFalse())}
+            >
               <h1 className={styles.logo}>21Vek.log</h1>
             </NavLink>
           </div>
@@ -158,7 +160,13 @@ const PostHeader = () => {
                 fill: "white",
               }}
             />
-            <NavLink to='/catalogs' style={{textDecoration: 'none', color: "black"}} onClick={() => dispatch(changeDisplayTrue())}><p className={styles.cotolog_text}>Католог товаров</p></NavLink>
+            <NavLink
+              to="/catalogs"
+              style={{ textDecoration: "none", color: "black" }}
+              onClick={() => dispatch(changeDisplayTrue())}
+            >
+              <p className={styles.cotolog_text}>Католог товаров</p>
+            </NavLink>
           </div>
           <div>
             <Input
@@ -200,7 +208,10 @@ const PostHeader = () => {
             </Dropdown>
           </div>
           <div>
-            <NavLink to="/basket" onClick={() => dispatch(changeDisplayFalse())} >
+            <NavLink
+              to="/basket"
+              onClick={() => dispatch(changeDisplayFalse())}
+            >
               <button className={styles.basket}>
                 <ShoppingCartOutlined style={{ marginRight: "5px" }} /> Корзинка
               </button>
@@ -297,13 +308,16 @@ const PostHeader = () => {
                   <div className={styles.suggestion}>
                     <p className={styles.well_known_word}></p>
                     <div className={styles.suggestion_box}>
-                      <NavLink to={`/detail/:${items.id}`} style={{color: "black", textDecoration: "none"}}>
+                      <NavLink
+                        to={`/detail/:${items.id}`}
+                        style={{ color: "black", textDecoration: "none" }}
+                      >
                         <p
                           onClick={() => {
                             dispatch(addRecent(items.name));
-                            setModalSearchActive(false)
-                            dispatch(textClear())
-                             dispatch(changeDisplayFalse())
+                            setModalSearchActive(false);
+                            dispatch(textClear());
+                            dispatch(changeDisplayFalse());
                           }}
                         >
                           {items?.name}
@@ -318,7 +332,9 @@ const PostHeader = () => {
         </div>
       </div>
 
-      <div className={smt ? `${styles.catalogs} ${styles.hide}` : styles.catalogs}>
+      <div
+        className={smt ? `${styles.catalogs} ${styles.hide}` : styles.catalogs}
+      >
         <div className={styles.catalogs_inner}>
           <p>Все акций </p>
           <div className={styles.divider}></div>

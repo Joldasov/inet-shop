@@ -2,14 +2,14 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../helpers/helpers";
-import { fetchCart } from "../../../store/slice/addCart";
+import { fetchCart } from "../../../thunk/addCartThunk";
 import {
   fetchGoodsComputers_peripherals,
   fetchGoodsElectronics,
   fetchGoodsFurniture,
   fetchGoodsHobbies,
-} from "../../../store/slice/goods";
-import { fetchUserInfo } from "../../../store/slice/userInfo";
+} from "../../../thunk/goodsThunk";
+import { fetchUserInfo } from "../../../thunk/userInfoThunk";
 import styles from "./AllStyle.module.scss";
 import Offers from "./offers/Offers";
 import PopularGoods from "./popular/popularGoods";
@@ -123,8 +123,8 @@ const All = () => {
       <div className={styles.desc}>
         <button
           onClick={() => {
-            func1()
-            setSort("raing")
+            func1();
+            setSort("raing");
           }}
           className={active1 ? `${styles.btn} ${styles.active}` : styles.btn}
         >
@@ -132,8 +132,8 @@ const All = () => {
         </button>
         <button
           onClick={() => {
-            func2()
-            setSort("price")
+            func2();
+            setSort("price");
           }}
           className={active2 ? `${styles.btn} ${styles.active}` : styles.btn}
         >
@@ -142,8 +142,8 @@ const All = () => {
 
         <button
           onClick={() => {
-            func3()
-            setSort('rating')
+            func3();
+            setSort("rating");
           }}
           className={active3 ? `${styles.btn} ${styles.active}` : styles.btn}
         >
@@ -152,8 +152,8 @@ const All = () => {
 
         <button
           onClick={() => {
-            func4()
-            setSort('price')
+            func4();
+            setSort("price");
           }}
           className={active4 ? `${styles.btn} ${styles.active}` : styles.btn}
         >
@@ -161,8 +161,8 @@ const All = () => {
         </button>
         <button
           onClick={() => {
-            func5()
-            setSort("availableAmount")
+            func5();
+            setSort("availableAmount");
           }}
           className={active5 ? `${styles.btn} ${styles.active}` : styles.btn}
         >

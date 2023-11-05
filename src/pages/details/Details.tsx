@@ -7,19 +7,17 @@ import {
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../helpers/helpers";
-import { fetchCart } from "../../store/slice/addCart";
-import { fetchGetItem } from "../../store/slice/get";
-import { fetchUserInfo } from "../../store/slice/userInfo";
+import { fetchUserInfo } from "../../thunk/userInfoThunk";
+import { fetchCart } from "../../thunk/addCartThunk";
+import { fetchGetItem } from "../../thunk/getItemThunk";
 import styles from "./DetailsStyle.module.scss";
 
 const Detail = () => {
   const { name } = useParams();
   const dispatch = useAppDispatch();
   const id = name?.slice(1);
-
   const fulfilled = useAppSelector((state) => state.get.status);
   const userInfo = useAppSelector((state) => state.userInfo.true);
-
   const [num, setNum] = useState(0);
   const Click = () => {
     setNum(num + 1);
@@ -32,8 +30,7 @@ const Detail = () => {
   useEffect(() => {
     dispatch(fetchUserInfo());
   }, [num]);
-  console.log(fulfilled);
-  console.log(fulfilled)
+
   return (
     <div className={styles.wrapper}>
       <NavLink to="/">
@@ -47,7 +44,9 @@ const Detail = () => {
           </button>
           <button className={styles.imgBtn}>
             <img
-              src={fulfilled?.imageUrls?.length > 0 ? fulfilled.imageUrls[0] : ""}
+              src={
+                fulfilled?.imageUrls?.length > 0 ? fulfilled.imageUrls[0] : ""
+              }
               width={65}
               height={65}
             />
@@ -92,14 +91,14 @@ const Detail = () => {
           </button>
           {userInfo.data?.cart.filter((item) => item === fulfilled.id).length >
           0 ? (
-            <NavLink to='/basket' >
+            <NavLink to="/basket">
               <button
                 onClick={() => {
                   dispatch(fetchCart(id));
                   Click();
                 }}
                 className={styles.added}
-                style={{textDecoration: 'underline'}}
+                style={{ textDecoration: "underline" }}
               >
                 В корзину
               </button>

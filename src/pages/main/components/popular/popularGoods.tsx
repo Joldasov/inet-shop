@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../helpers/helpers";
-import { fetchCart } from "../../../../store/slice/addCart";
+import { addArray } from "../../../../store/slice/goods";
+import { fetchCart } from "../../../../thunk/addCartThunk";
 import {
-  addArray,
   fetchApplience,
   fetchGoodsComputers_peripherals,
   fetchGoodsElectronics,
   fetchGoodsFurniture,
   fetchGoodsHobbies,
-} from "../../../../store/slice/goods";
-import { fetchUserInfo } from "../../../../store/slice/userInfo";
+} from "../../../../thunk/goodsThunk";
+import { fetchUserInfo } from "../../../../thunk/userInfoThunk";
 import styles from "./popularStyle.module.scss";
 
 const PopularGoods = () => {
@@ -61,7 +61,7 @@ const PopularGoods = () => {
         dispatch(fetchApplience({ app, sort })),
       ]).then((values) => {
         setFufilled(values);
-        dispatch(addArray(values))
+        dispatch(addArray(values));
       });
     }
 

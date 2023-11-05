@@ -1,15 +1,16 @@
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Input } from "antd";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../helpers/helpers";
-import { addLogin, addPassword, fetchLogin } from "../../../store/slice/login";
+import { addLogin, addPassword } from "../../../store/slice/login";
 import {
   addRegisterLogin,
   addRegisterName,
   addRegisterPassword,
   addRegisterSurname,
-  fetchRegister,
 } from "../../../store/slice/register";
+import { fetchLogin } from "../../../thunk/loginThunk";
+import { fetchRegister } from "../../../thunk/registerThunk";
 import styles from "./accaunt.module.scss";
 interface Iactive {
   active: boolean;
@@ -29,9 +30,7 @@ const Accaunt = ({ active, setActive }: Iactive) => {
   const [partTimeValuePassword, setPartTimeValuePassword] =
     useState<string>("");
   const fulfilled = useAppSelector((state) => state.login.status);
-  const rejected = useAppSelector((state) => state.login.error);
 
-  console.log(fulfilled);
   const handleBtn = () => {
     if (login.length > 0 && password.length > 0) {
       setNotFilled(false);
@@ -40,25 +39,15 @@ const Accaunt = ({ active, setActive }: Iactive) => {
       setNotFilled(true);
     }
   };
-  
+
   useEffect(() => {
     if (fulfilled) {
       setActive(false);
       setRegisterActive(false);
       setPartTimeValueLogin("");
       setPartTimeValuePassword("");
-    } 
+    }
   }, [fulfilled]);
-
- 
-
-  // useEffect(() => {
-  //   if (rejected) {
-  //    alert('Не правильно введены пароль или логин')
-  //   } 
-  // }, [rejected]);
-
-  console.log(rejected)
 
   return (
     <div

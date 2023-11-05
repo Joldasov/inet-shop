@@ -1,32 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { $api } from "../../services/servise";
-// import axios from "axios";
-
-interface Iregister {
-  registerLogin: string;
-  registerPassword: string;
-  name: string;
-  surname: string;
-}
-export const fetchRegister = createAsyncThunk(
-  "Auth/Register",
-  async (
-    { registerLogin, registerPassword, name, surname }: Iregister,
-    thunkAPI
-  ) => {
-    try {
-      const data = await $api.post("/users/register", {
-        name: name,
-        surname: surname,
-        login: registerLogin,
-        password: registerPassword,
-      });
-      console.log(data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error as Error);
-    }
-  }
-);
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchRegister } from "../../thunk/registerThunk";
 export interface registerState {
   login: string;
   password: string;

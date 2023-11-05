@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../helpers/helpers";
-import { fetchCart } from "../../store/slice/addCart";
-import { fetchUserInfo } from "../../store/slice/userInfo";
+import { fetchCart } from "../../thunk/addCartThunk";
+import { fetchUserInfo } from "../../thunk/userInfoThunk";
 import styles from "./style.module.scss";
 const SubCategoryItems = () => {
   useEffect(() => {}, []);
@@ -17,12 +17,15 @@ const SubCategoryItems = () => {
   useEffect(() => {
     dispatch(fetchUserInfo());
   }, [num]);
-//   console.log(userInfo.data.cart)
   return (
     <div className={styles.wrapper}>
-        <div style={{paddingTop: "10px"}}>
-            <NavLink to='/'><p style={{color: "gray"}}>Главная <span></span> </p></NavLink>
-        </div>
+      <div style={{ paddingTop: "10px" }}>
+        <NavLink to="/">
+          <p style={{ color: "gray" }}>
+            Главная <span></span>{" "}
+          </p>
+        </NavLink>
+      </div>
       <div className={styles.goods}>
         {goods?.data?.map((smt) => (
           <div className={styles.box}>
@@ -69,7 +72,7 @@ const SubCategoryItems = () => {
                 Курьером – 23 Окт <br /> Самовывоз – 22 Окт
               </p>
             </div>
-            <div style={{textAlign: 'center'}}>
+            <div style={{ textAlign: "center" }}>
               <button
                 className={
                   userInfo.data?.cart.filter((item) => item === smt.id).length >

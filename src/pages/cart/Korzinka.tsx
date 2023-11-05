@@ -8,20 +8,19 @@ import {
   PlusOutlined,
 } from "@ant-design/icons";
 import { Button, Drawer, Form, Input } from "antd";
-import type { DrawerProps } from "antd/es/drawer";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../helpers/helpers";
-import { fetchBuy } from "../../store/slice/Buy";
+import { fetchBuy } from "../../thunk/buyThunk";
 import {
   DataAdd,
   Discreament,
   Increament,
   Items,
-  fetchCartDelete,
-  fetchInFavor,
 } from "../../store/slice/addCart";
-import { fetchGetItem } from "../../store/slice/get";
-import { fetchUserInfo } from "../../store/slice/userInfo";
+import { fetchUserInfo } from "../../thunk/userInfoThunk";
+import { fetchInFavor } from "../../thunk/addFavor";
+import { fetchCartDelete } from "../../thunk/deleteCartThunk";
+import { fetchGetItem } from "../../thunk/getItemThunk";
 import styles from "./KrozinkaStyle.module.scss";
 
 const Basket = () => {

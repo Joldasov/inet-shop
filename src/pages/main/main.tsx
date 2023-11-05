@@ -1,7 +1,7 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { useState } from "react";
-import Brands  from "./brands/brands";
-import All from "./all/All";
+import All from "./components/All";
+import Brands from "./components/brands/brands";
 import styles from "./mainStyle.module.scss";
 const Main = () => {
   const [offset, setOffset] = useState<number>(0);
@@ -38,8 +38,8 @@ const Main = () => {
           <RightOutlined style={{ color: "#e52e6b" }} />
         </button>
       </div>
-      <Brands/>
-      <All/>
+      <Brands />
+      <All />
     </div>
   );
 };
