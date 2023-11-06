@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import Header from "../pages/header/header";
-import PostHeader from "../pages/postHeader/postHeader";
-import Footer from "../pages/footer/Footer";
+import Footer from "./components/footer/Footer";
+import Header from "./components/header/header";
+import PostHeader from "./components/postHeader/postHeader";
 
 const MainLayOut = () => {
   return (
@@ -10,7 +10,7 @@ const MainLayOut = () => {
         <Header />
         <PostHeader />
       </header>
-      <main  style={{ minHeight: "100vh" }}>
+      <main style={{ minHeight: "100vh" }}>
         <Outlet />
       </main>
       <footer style={{ backgroundColor: "#f7f8fa" }}>

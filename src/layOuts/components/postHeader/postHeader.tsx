@@ -15,7 +15,8 @@ import type { MenuProps } from "antd";
 import { Dropdown, Input, Space } from "antd";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../helpers/helpers";
+import { useAppDispatch, useAppSelector } from "../../../helpers/helpers";
+import Accaunt from "../../../pages/modalWindows/accaunt/accaunt";
 import {
   addRecent,
   addSearch,
@@ -23,9 +24,8 @@ import {
   changeDisplayTrue,
   reset,
   textClear,
-} from "../../store/slice/search";
-import Accaunt from "../modalWindows/accaunt/accaunt";
-import { fetchSearch } from "../../thunk/searchThunk";
+} from "../../../store/slice/search";
+import { fetchSearch } from "../../../thunk/searchThunk";
 import styles from "./postStyle.module.scss";
 const PostHeader = () => {
   const [modalActive, setModalActive] = useState<boolean>(false);
