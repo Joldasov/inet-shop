@@ -7,7 +7,7 @@ const $api = axios.create({
 const $authHost = axios.create({
   baseURL: "http://localhost:3004",
 });
-console.log(localStorage.getItem('token'))
+
 $authHost.interceptors.request.use((config) => {
   (
     config.headers as AxiosRequestHeaders

@@ -1,5 +1,7 @@
-import { createAsyncThunk} from "@reduxjs/toolkit";
-import { $api } from "../services/service";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { $api } from "../../services/service";
+import { endpoints } from "../../utils/const/endpoints";
+import { thunkNames } from "../../utils/const/thunkNames";
 
 interface Iregister {
   registerLogin: string;
@@ -8,19 +10,19 @@ interface Iregister {
   surname: string;
 }
 export const fetchRegister = createAsyncThunk(
-  "Auth/Register",
+  thunkNames.AUTH_REGISTER,
   async (
     { registerLogin, registerPassword, name, surname }: Iregister,
     thunkAPI
   ) => {
     try {
-      const data = await $api.post("/users/register", {
+      const data = await $api.post(endpoints.AUTH_REGISTER, {
         name: name,
         surname: surname,
         login: registerLogin,
         password: registerPassword,
       });
-      console.log(data);
+      return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error as Error);
     }

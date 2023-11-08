@@ -15,7 +15,6 @@ import type { MenuProps } from "antd";
 import { Dropdown, Input, Space } from "antd";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../helpers/helpers";
 import Accaunt from "../../../pages/modalWindows/accaunt/accaunt";
 import {
   addRecent,
@@ -25,7 +24,8 @@ import {
   reset,
   textClear,
 } from "../../../store/slice/search";
-import { fetchSearch } from "../../../thunk/searchThunk";
+import { fetchSearch } from "../../../store/thunk/searchThunk";
+import { useAppDispatch, useAppSelector } from "../../../utils/helpers/helpers";
 import styles from "./postStyle.module.scss";
 const PostHeader = () => {
   const [modalActive, setModalActive] = useState<boolean>(false);
@@ -34,9 +34,6 @@ const PostHeader = () => {
   const text = useAppSelector((state) => state.search.text);
   const fulfilled = useAppSelector((state) => state.search.status);
   const isLoading = useAppSelector((state) => state.search.isLoading);
-
-  console.log(fulfilled);
-  console.log(text);
 
   const items: MenuProps["items"] = [
     {

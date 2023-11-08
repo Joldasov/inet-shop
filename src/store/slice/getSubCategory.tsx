@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchGetSubItems } from "../../thunk/subItemsThunk";
-
+import { fetchGetSubItems } from "../thunk/subItemsThunk";
 
 export interface getSubItemState {
   error: string;
@@ -34,7 +33,7 @@ export const GetSubItem = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
+
 export const {} = GetSubItem.actions;
 
 export default GetSubItem.reducer;

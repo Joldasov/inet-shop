@@ -1,5 +1,5 @@
-import {createSlice } from "@reduxjs/toolkit";
-import { fetchSearch } from "../../thunk/searchThunk";
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchSearch } from "../thunk/searchThunk";
 
 export interface searchState {
   error: string;
@@ -58,7 +58,7 @@ export const Search = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
+
 export const {
   addSearch,
   addRecent,

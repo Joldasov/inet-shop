@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../helpers/helpers";
-import { fetchCatalog } from "../../store/slice/Catalog";
-import { fetchGetSubItems } from "../../thunk/subItemsThunk";
+import { fetchCatalog } from "../../store/slice/catalog";
 import { changeDisplayFalse } from "../../store/slice/search";
-import styles from "./catalogStyle.module.scss";
+import { fetchGetSubItems } from "../../store/thunk/subItemsThunk";
+import { useAppDispatch, useAppSelector } from "../../utils/helpers/helpers";
+import styles from "./catalog.module.scss";
 
 const Catalog = () => {
   const dispatch = useAppDispatch();
@@ -28,7 +28,7 @@ const Catalog = () => {
   useEffect(() => {
     dispatch(fetchCatalog());
   }, []);
-  
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.categories}>

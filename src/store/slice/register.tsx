@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchRegister } from "../../thunk/registerThunk";
+import { fetchRegister } from "../thunk/registerThunk";
 export interface registerState {
   login: string;
   password: string;
@@ -54,7 +54,7 @@ export const Register = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
+
 export const {
   addRegisterLogin,
   addRegisterPassword,

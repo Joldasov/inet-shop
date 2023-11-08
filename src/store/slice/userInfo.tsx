@@ -1,6 +1,5 @@
-import {createSlice } from "@reduxjs/toolkit";
-import { fetchUserInfo } from "../../thunk/userInfoThunk";
-
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchUserInfo } from "../thunk/userInfoThunk";
 
 export interface registerState {
   error: string;
@@ -34,7 +33,7 @@ export const UserInfo = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
+
 export const {} = UserInfo.actions;
 
 export default UserInfo.reducer;

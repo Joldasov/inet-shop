@@ -1,26 +1,28 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { $authHost } from "../services/service";
+import { $authHost } from "../../services/service";
+import { endpoints } from "../../utils/const/endpoints";
+import { thunkNames } from "../../utils/const/thunkNames";
 interface IBuy {
-    name: string;
-    address: string;
-    phone: string;
-    timeToDeliver: string;
-    comment: string;
-    items: [
-      {
-        id: string;
-        amount: number;
-      }
-    ];
-  }
+  name: string;
+  address: string;
+  phone: string;
+  timeToDeliver: string;
+  comment: string;
+  items: [
+    {
+      id: string;
+      amount: number;
+    }
+  ];
+}
 export const fetchBuy = createAsyncThunk(
-  "fetch/Buy",
+  thunkNames.USER_BUY,
   async (
     { name, address, items, phone, timeToDeliver, comment }: IBuy,
     thunkAPI
   ) => {
     try {
-      const data = await $authHost.post("/users/order", {
+      const data = await $authHost.post(endpoints.USER_BUY, {
         items: items,
         details: {
           name: name,

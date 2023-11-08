@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { $authHost } from "../services/service";
+import { $authHost } from "../../services/service";
+import { thunkNames } from "../../utils/const/thunkNames";
 interface IGoodsElec {
   elec: string;
   sort: string;
 }
 
 export const fetchGoodsElectronics = createAsyncThunk(
-  "Auth/GoodsElectronics",
+  thunkNames.USER_ELECTRONICS,
   async ({ elec, sort }: IGoodsElec, thunkAPI) => {
     try {
       const data = await $authHost.get(
@@ -24,7 +25,7 @@ interface IGoodsHob {
   sort: string;
 }
 export const fetchGoodsHobbies = createAsyncThunk(
-  "Auth/GoodsHobbies",
+  thunkNames.USER_HOBBIES,
   async ({ hobby, sort }: IGoodsHob, thunkAPI) => {
     try {
       const data = await $authHost.get(
@@ -43,7 +44,7 @@ interface IGoodsCom {
   sort: string;
 }
 export const fetchGoodsComputers_peripherals = createAsyncThunk(
-  "Auth/GoodsHobbies",
+  thunkNames.USER_COMPUTERS,
   async ({ comp, sort }: IGoodsCom, thunkAPI) => {
     try {
       const data = await $authHost.get(
@@ -61,7 +62,7 @@ interface IApp {
   sort: string;
 }
 export const fetchApplience = createAsyncThunk(
-  "Auth/applience",
+  thunkNames.USER_APPLIENCE,
   async ({ app, sort }: IApp, thunkAPI) => {
     try {
       const data = await $authHost.get(
@@ -79,7 +80,7 @@ interface IGoodsFur {
   sort: string;
 }
 export const fetchGoodsFurniture = createAsyncThunk(
-  "Auth/GoodsHobbies",
+  thunkNames.USER_FURNITURE,
   async ({ fur, sort }: IGoodsFur, thunkAPI) => {
     try {
       const data = await $authHost.get(

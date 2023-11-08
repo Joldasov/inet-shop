@@ -1,7 +1,5 @@
-import {  createSlice } from "@reduxjs/toolkit";
-import { fetchLogin } from "../../thunk/loginThunk";
-
-
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchLogin } from "../thunk/loginThunk";
 
 export interface loginState {
   login: string;
@@ -45,7 +43,7 @@ export const Login = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
+
 export const { addLogin, addPassword } = Login.actions;
 
 export default Login.reducer;

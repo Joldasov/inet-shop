@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../helpers/helpers";
-import { fetchCart } from "../../thunk/addCartThunk";
-import { fetchUserInfo } from "../../thunk/userInfoThunk";
-import styles from "./style.module.scss";
+import { fetchCart } from "../../store/thunk/addCartThunk";
+import { fetchUserInfo } from "../../store/thunk/userInfoThunk";
+import { useAppDispatch, useAppSelector } from "../../utils/helpers/helpers";
+import styles from "./categorySub.module.scss";
 const SubCategoryItems = () => {
-  useEffect(() => {}, []);
   const goods = useAppSelector((state) => state.subItem.status);
-  console.log(goods);
   const dispatch = useAppDispatch();
   const userInfo = useAppSelector((state) => state.userInfo.true);
   const [num, setNum] = useState<number>(0);

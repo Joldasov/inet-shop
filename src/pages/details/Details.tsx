@@ -6,11 +6,11 @@ import {
 } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../helpers/helpers";
-import { fetchUserInfo } from "../../thunk/userInfoThunk";
-import { fetchCart } from "../../thunk/addCartThunk";
-import { fetchGetItem } from "../../thunk/getItemThunk";
-import styles from "./DetailsStyle.module.scss";
+import { fetchCart } from "../../store/thunk/addCartThunk";
+import { fetchGetItem } from "../../store/thunk/getItemThunk";
+import { fetchUserInfo } from "../../store/thunk/userInfoThunk";
+import { useAppDispatch, useAppSelector } from "../../utils/helpers/helpers";
+import styles from "./details.module.scss";
 
 const Detail = () => {
   const { name } = useParams();

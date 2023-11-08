@@ -1,4 +1,4 @@
-import styles from "./offersStyle.module.scss";
+import styles from "./offers.module.scss";
 
 const Offers = () => {
   return (

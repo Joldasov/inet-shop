@@ -9,21 +9,21 @@ import {
 } from "@ant-design/icons";
 import { Button, Drawer, Form, Input } from "antd";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../helpers/helpers";
-import { fetchBuy } from "../../thunk/buyThunk";
 import {
   DataAdd,
   Discreament,
   Increament,
   Items,
 } from "../../store/slice/addCart";
-import { fetchUserInfo } from "../../thunk/userInfoThunk";
-import { fetchInFavor } from "../../thunk/addFavor";
-import { fetchCartDelete } from "../../thunk/deleteCartThunk";
-import { fetchGetItem } from "../../thunk/getItemThunk";
-import styles from "./KrozinkaStyle.module.scss";
+import { fetchInFavor } from "../../store/thunk/addFavoriteThunk";
+import { fetchBuy } from "../../store/thunk/buyThunk";
+import { fetchCartDelete } from "../../store/thunk/deleteCartThunk";
+import { fetchGetItem } from "../../store/thunk/getItemThunk";
+import { fetchUserInfo } from "../../store/thunk/userInfoThunk";
+import { useAppDispatch, useAppSelector } from "../../utils/helpers/helpers";
+import styles from "./cart.module.scss";
 
-const Basket = () => {
+const Cart = () => {
   const dispatch = useAppDispatch();
   const fulfilled = useAppSelector((state) => state.userInfo.true);
   const data = useAppSelector((state) => state.cart.data);
@@ -37,7 +37,6 @@ const Basket = () => {
 
   useEffect(() => {
     dispatch(fetchUserInfo());
-    console.log(data);
   }, [dispatch]);
 
   let AllAmount = 0;
@@ -53,6 +52,23 @@ const Basket = () => {
 
   const onClose = () => {
     setOpen(false);
+    setName("");
+    setAddress("");
+    setComment("");
+    setPhone("");
+  };
+  const SubmitOrder = () => {
+    dispatch(
+      fetchBuy({
+        items,
+        name,
+        address,
+        phone,
+        timeToDeliver,
+        comment,
+      })
+    );
+    onClose();
   };
 
   useEffect(() => {
@@ -73,30 +89,13 @@ const Basket = () => {
         })
         .then((res) => {
           dispatch(DataAdd(res));
-          dispatch(Items(res));
         });
     }
   }, [fulfilled.data?.cart, dispatch]);
 
-  const SubmitOrder = () => {
-    dispatch(
-      fetchBuy({
-        items: items,
-        details: {
-          name: name,
-          address: address,
-          phone: phone,
-          timeToDeliver: timeToDeliver,
-          comment: comment,
-        },
-      })
-    );
-    onClose();
-    setName("");
-    setAddress("");
-    setComment("");
-    setPhone("");
-  };
+  useEffect(() => {
+    dispatch(Items(data));
+  }, [AllAmount]);
 
   return (
     <div className={styles.box}>
@@ -197,14 +196,14 @@ const Basket = () => {
           <div className={styles.order}>
             <div className={styles.price}>
               <h1>Итого</h1>
-              <h1>{AllPrice}</h1>
+              <h1>{Math.floor(AllPrice)}</h1>
             </div>
             <div className={styles.divider}></div>
             <div className={styles.amount}>
               <p>
                 Товары - <span>{AllAmount}</span>
               </p>
-              <p style={{ fontWeight: "600" }}>{AllPrice}</p>
+              <p style={{ fontWeight: "600" }}>{Math.floor(AllPrice)}</p>
             </div>
             <div className={styles.bonus}>
               <CreditCardOutlined
@@ -360,4 +359,4 @@ const Basket = () => {
     </div>
   );
 };
-export default Basket;
+export default Cart;

@@ -1,15 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { $api } from "../services/service";
+import { $api } from "../../services/service";
+import { endpoints } from "../../utils/const/endpoints";
+import { thunkNames } from "../../utils/const/thunkNames";
 
-interface Iregister {
+interface ILogin {
   login: string;
   password: string;
 }
 export const fetchLogin = createAsyncThunk(
-  "Auth/Login",
-  async ({ login, password }: Iregister, thunkAPI) => {
+  thunkNames.AUTH_LOGIN,
+  async ({ login, password }: ILogin, thunkAPI) => {
     try {
-      const data = await $api.post("/users/login", {
+      const data = await $api.post(endpoints.AUTH_LOGIN, {
         login: login,
         password: password,
       });

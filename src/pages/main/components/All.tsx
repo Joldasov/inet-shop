@@ -1,17 +1,17 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../helpers/helpers";
-import { fetchCart } from "../../../thunk/addCartThunk";
+import { fetchCart } from "../../../store/thunk/addCartThunk";
 import {
   fetchGoodsComputers_peripherals,
   fetchGoodsElectronics,
   fetchGoodsFurniture,
   fetchGoodsHobbies,
-} from "../../../thunk/goodsThunk";
-import { fetchUserInfo } from "../../../thunk/userInfoThunk";
-import styles from "./AllStyle.module.scss";
-import Offers from "./offers/Offers";
+} from "../../../store/thunk/goodsThunk";
+import { fetchUserInfo } from "../../../store/thunk/userInfoThunk";
+import { useAppDispatch, useAppSelector } from "../../../utils/helpers/helpers";
+import styles from "./all.module.scss";
+import Offers from "./offers/offers";
 import PopularGoods from "./popular/popularGoods";
 
 const All = () => {
@@ -21,6 +21,11 @@ const All = () => {
   const [active4, setActive4] = useState(false);
   const [active5, setActive5] = useState(false);
   const [fulfilled, setFufilled] = useState([]);
+  const [num, setNum] = useState<number>(0);
+  const [sort, setSort] = useState<string>("item");
+  const [offset, setOffest] = useState(0);
+  const userInfo = useAppSelector((state) => state.userInfo.true);
+  const dispatch = useAppDispatch();
 
   const func1 = () => {
     setActive1(true);
@@ -59,13 +64,30 @@ const All = () => {
     setActive5(true);
   };
 
-  const dispatch = useAppDispatch();
   const comp = "computers-peripherals";
   const elec = "electronics";
   const fur = "furniture";
   const hobby = "hobbies";
-  const [sort, setSort] = useState<string>("item");
 
+  const handleOffsetNext = () => {
+    setOffest(offset + 1494);
+    if (offset >= 2988) {
+      setOffest(0);
+    }
+  };
+  const handleOffsetPrev = () => {
+    setOffest(offset - 1494);
+    if (offset <= 0) {
+      setOffest(2988);
+    }
+  };
+  const func = () => {
+    setNum(num + 1);
+  };
+
+  useEffect(() => {
+    dispatch(fetchUserInfo());
+  }, [num]);
   useEffect(() => {
     async function fetchData() {
       await Promise.all([
@@ -81,44 +103,10 @@ const All = () => {
     fetchData();
   }, [sort, dispatch]);
 
-  console.log;
-
-  console.log(fulfilled);
-  const [offset, setOffest] = useState(0);
-
-  const handleOffsetNext = () => {
-    setOffest(offset + 1494);
-    if (offset >= 2988) {
-      setOffest(0);
-    }
-  };
-  const handleOffsetPrev = () => {
-    setOffest(offset - 1494);
-    if (offset <= 0) {
-      setOffest(2988);
-    }
-  };
-  const [num, setNum] = useState<number>(0);
-  const func = () => {
-    setNum(num + 1);
-  };
-  useEffect(() => {
-    dispatch(fetchUserInfo());
-  }, [num]);
-
-  const userInfo = useAppSelector((state) => state.userInfo.true);
-
-  console.log(offset);
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>
         <p style={{ fontWeight: "600", fontSize: "24px" }}>Все акций</p>
-        <p
-          style={{ fontSize: "18px", color: "#07c" }}
-          className={styles.cursor}
-        >
-          Смотреть все
-        </p>
       </div>
       <div className={styles.desc}>
         <button
@@ -263,7 +251,6 @@ const All = () => {
         </button>
       </div>
       <Offers />
-
       <PopularGoods />
     </div>
   );

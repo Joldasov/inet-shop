@@ -19,7 +19,7 @@ export const Goods = createSlice({
   extraReducers: {},
 });
 
-// Action creators are generated for each case reducer function
+
 export const { addArray } = Goods.actions;
 
 export default Goods.reducer;

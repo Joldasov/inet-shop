@@ -1,4 +1,4 @@
-import styles from './brandsStyle.module.scss'
+import styles from './brands.module.scss'
 const Data = [
     {
         name: 'Xiaomi',

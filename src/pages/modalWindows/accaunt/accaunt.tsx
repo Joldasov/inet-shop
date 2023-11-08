@@ -1,7 +1,6 @@
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Input } from "antd";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../helpers/helpers";
 import { addLogin, addPassword } from "../../../store/slice/login";
 import {
   addRegisterLogin,
@@ -9,8 +8,9 @@ import {
   addRegisterPassword,
   addRegisterSurname,
 } from "../../../store/slice/register";
-import { fetchLogin } from "../../../thunk/loginThunk";
-import { fetchRegister } from "../../../thunk/registerThunk";
+import { fetchLogin } from "../../../store/thunk/loginThunk";
+import { fetchRegister } from "../../../store/thunk/registerThunk";
+import { useAppDispatch, useAppSelector } from "../../../utils/helpers/helpers";
 import styles from "./accaunt.module.scss";
 interface Iactive {
   active: boolean;
