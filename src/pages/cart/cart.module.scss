@@ -5,6 +5,10 @@ body {
   width: 1500px;
   margin: 0 auto;
   // background: #fff;
+  h1 {
+    font-weight: 620;
+    padding-bottom: 10px;
+  }
   .divider {
     width: 100%;
     height: 1px;
@@ -20,6 +24,27 @@ body {
       display: flex;
       width: 1050px;
       margin-top: 20px;
+      img {
+        width: 88px;
+        height: 88px;
+      }
+      .goodInnerPost {
+        margin-left: 30px;
+        .goodInnerPostInner {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 880px;
+          .info {
+            font-size: 18px;
+            width: 292px;
+          }
+          .infoText {
+            font-weight: 600;
+            font-size: 22px;
+          }
+        }
+      }
     }
     .btns {
       display: flex;
@@ -70,6 +95,9 @@ body {
         p {
           font-size: 21px;
         }
+        .allPrice {
+          font-weight: 600;
+        }
       }
       .bonus {
         // width: 272px;
@@ -79,6 +107,12 @@ body {
         padding: 12px 16px 12px 12px;
         font-size: 19px;
         border-radius: 6px;
+        p{
+          color: #7b3eb8;
+          span{
+            font-weight: 600;
+          }
+        }
       }
       .someText {
         padding-top: 20px;
@@ -111,6 +145,12 @@ body {
       padding: 30px 20px;
       border-radius: 5px;
       font-size: 20px;
+      p {
+        span {
+          font-weight: 600;
+          margin: 0 5px;
+        }
+      }
     }
     .AddDelete {
       text-align: right;
@@ -151,29 +191,29 @@ body {
   fill: #cf2d63;
 }
 
-.ant-drawer .ant-drawer-header{
+.ant-drawer .ant-drawer-header {
   display: none;
 }
-.logo{
-  background-image: url('https://cdn21vek.by/img/checkout/logo.svg');
+.logo {
+  background-image: url("https://cdn21vek.by/img/checkout/logo.svg");
   width: 260px;
   height: 50px;
   background-repeat: no-repeat;
 }
-.drawerWrapper{
+.drawerWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   padding-top: 246px;
-  .order{
-    background-image: url('https://cdn21vek.by/img/checkout/checkout-presenation-1.png');
+  .order {
+    background-image: url("https://cdn21vek.by/img/checkout/checkout-presenation-1.png");
     width: 558px;
     height: 400px;
     border: 0;
     align-self: center;
   }
 }
-.someText{
+.someText {
   text-align: center;
   padding-bottom: 30px;
 }

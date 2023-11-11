@@ -94,7 +94,7 @@ const PopularGoods = () => {
   const userInfo = useAppSelector((state) => state.userInfo.true);
 
   return (
-    <div style={{ width: "1500px", margin: "0 auto" }}>
+    <div className={styles.wrapper}>
       <div className={styles.textBox}>
         <h1 style={{ fontWeight: "630", fontSize: "26px" }}>Популярное</h1>
       </div>

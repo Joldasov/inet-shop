@@ -180,7 +180,6 @@ const All = () => {
                       <NavLink to={`/detail/:${smt.id}`}>
                         <img
                           src={smt.imageUrls[0]}
-                          style={{ width: "128px", height: "128px" }}
                         />
                       </NavLink>
                     </div>
@@ -210,11 +209,7 @@ const All = () => {
                     </div>
                     <div>
                       <p
-                        style={{
-                          color: "gray",
-                          fontSize: "12px",
-                          marginTop: "5px",
-                        }}
+                       className={styles.orderTime}
                       >
                         Курьером – 23 Окт <br /> Самовывоз – 22 Окт
                       </p>
@@ -243,8 +238,7 @@ const All = () => {
         </div>
 
         <button
-          className={styles.btns}
-          style={{ marginLeft: "30px" }}
+          className={`${styles.btns} ${styles.right}`}
           onClick={() => handleOffsetNext()}
         >
           <RightOutlined />

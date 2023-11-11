@@ -36,7 +36,7 @@ const Detail = () => {
       <NavLink to="/">
         <p>Главная</p>
       </NavLink>
-      <h1 style={{ paddingTop: "40px" }}>{fulfilled?.name}</h1>
+      <h1 className={styles.name}>{fulfilled?.name}</h1>
       <div className={styles.details}>
         <div className={styles.box0}>
           <button className={styles.playBtn}>
@@ -56,8 +56,8 @@ const Detail = () => {
           src={fulfilled?.imageUrls?.length > 0 ? fulfilled.imageUrls[0] : ""}
           style={{ margin: "0px 150px" }}
         />
-        <div className={styles?.price}>
-          <h1 style={{ fontWeight: "600" }}>
+        <div className={styles.price}>
+          <h1 >
             {fulfilled?.price} <span> р.</span>
           </h1>
           <p>

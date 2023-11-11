@@ -4,7 +4,7 @@ const Offers = () => {
   return (
     <div className={styles.wrapper}>
       <h1
-        style={{ fontSize: "25px", fontWeight: "600", paddingBottom: "20px" }}
+        
       >
         Предложения
       </h1>

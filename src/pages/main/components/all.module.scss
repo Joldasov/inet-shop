@@ -53,6 +53,9 @@
     border: 1px solid gray;
     border-color: gray;
   }
+  .right{
+    margin-left: 20px;
+  }
   .can {
     border: 1px solid #e52e6b;
   }
@@ -92,6 +95,10 @@
           outline: none;
           border-spacing: 0;
           padding-top: 24px;
+          img{
+            width: 128px;
+            height: 128px;
+          }
         }
       }
       .navLink {
@@ -125,4 +132,9 @@
       }
     }
   }
+}
+.orderTime{
+  color: gray;
+  font-size: 12px;
+  margin-top: 5px;
 }

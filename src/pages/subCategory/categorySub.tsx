@@ -31,17 +31,12 @@ const SubCategoryItems = () => {
               <NavLink to={`/detail/:${smt.id}`}>
                 <img
                   src={smt.imageUrls[0]}
-                  style={{ width: "128px", height: "128px" }}
                 />
               </NavLink>
             </div>
             <div>
               <h1
-                style={{
-                  fontSize: "19px",
-                  fontWeight: "600",
-                  marginTop: "10px",
-                }}
+               
               >
                 {smt.price} <span>р.</span>
               </h1>

@@ -1,7 +1,9 @@
 .wrapper {
   width: 1500px;
   margin: 0 auto;
-
+  .name{
+     padding-top: 40px
+  }
   .details {
     display: flex;
     padding-top: 50px;

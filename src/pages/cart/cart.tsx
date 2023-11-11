@@ -99,7 +99,7 @@ const Cart = () => {
 
   return (
     <div className={styles.box}>
-      <h1 style={{ fontWeight: "620", paddingBottom: "10px" }}>Kорзина</h1>
+      <h1>Kорзина</h1>
       <div className={styles.divider}></div>
       {fulfilled.data?.cart.length > 0 ? (
         <div className={styles.good}>
@@ -111,18 +111,13 @@ const Cart = () => {
                 <div className={styles.goodInner}>
                   <img
                     src={item?.imageUrls?.length > 0 ? item?.imageUrls[0] : ""}
-                    style={{ width: "88px", height: "88px" }}
+                   
                   />
-                  <div style={{ marginLeft: "30px" }}>
+                  <div className={styles.goodInnerPost}>
                     <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        width: "880px",
-                      }}
+                      className={styles.goodInnerPostInner}
                     >
-                      <p style={{ fontSize: "18px", width: "292px" }}>
+                      <p className={styles.info}>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Minus, quo.
                       </p>
@@ -150,15 +145,15 @@ const Cart = () => {
                           <PlusOutlined style={{ color: "black" }} />
                         </button>
                       </div>
-                      <p style={{ fontWeight: "600", fontSize: "22px" }}>
+                      <p className={styles.priceText}>
                         {Math.trunc(item?.price * 100) / 100}
                       </p>
                     </div>
                     <div className={styles.orderTime}>
                       <p>
-                        <span style={{ fontWeight: "600" }}>Доставка:</span>
+                        <span >Доставка:</span>
                         <CarOutlined style={{ marginLeft: "10px" }} />
-                        <span style={{ margin: "0px 5px" }}>
+                        <span>
                           Курьером 02.11
                         </span>
                         <EnvironmentOutlined
@@ -203,7 +198,7 @@ const Cart = () => {
               <p>
                 Товары - <span>{AllAmount}</span>
               </p>
-              <p style={{ fontWeight: "600" }}>{Math.floor(AllPrice)}</p>
+              <p className={styles.allPrice}>{Math.floor(AllPrice)}</p>
             </div>
             <div className={styles.bonus}>
               <CreditCardOutlined
@@ -213,8 +208,8 @@ const Cart = () => {
                   marginRight: "20px",
                 }}
               />
-              <p style={{ color: "#7b3eb8" }}>
-                <span style={{ fontWeight: "600" }}>
+              <p >
+                <span>
                   от 1,31 бонусных баллов
                 </span>{" "}
                 на следующие покупки
