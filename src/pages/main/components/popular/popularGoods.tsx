@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { addArray } from "../../../../store/slice/goods";
-import { fetchCart } from "../../../../store/thunk/addCartThunk";
+import { addArray } from "../../../../store/slice/Goods";
+import { fetchCart } from "../../../../store/thunk/AddCartThunk";
 import {
   fetchApplience,
   fetchGoodsComputers_peripherals,
   fetchGoodsElectronics,
   fetchGoodsFurniture,
   fetchGoodsHobbies,
-} from "../../../../store/thunk/goodsThunk";
-import { fetchUserInfo } from "../../../../store/thunk/userInfoThunk";
+} from "../../../../store/thunk/GoodsThunk";
+import { fetchUserInfo } from "../../../../store/thunk/UserInfoThunk";
 import {
   useAppDispatch,
   useAppSelector,

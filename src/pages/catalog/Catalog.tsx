@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { fetchCatalog } from "../../store/slice/catalog";
-import { changeDisplayFalse } from "../../store/slice/search";
-import { fetchGetSubItems } from "../../store/thunk/subItemsThunk";
+import { changeDisplayFalse } from "../../store/slice/Search";
+import { fetchCatalog } from "../../store/thunk/CatalogThunk";
+import { fetchGetSubItems } from "../../store/thunk/SubItemsThunk";
 import { useAppDispatch, useAppSelector } from "../../utils/helpers/helpers";
 import styles from "./catalog.module.scss";
 

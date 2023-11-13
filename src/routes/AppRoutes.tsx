@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import MainLayOut from "../layOuts/mainLayOut";
-import Cart from "../pages/cart/cart";
-import Catalog from "../pages/catalog/catalog";
-import Detail from "../pages/details/details";
-import Main from "../pages/main/main";
-import SubCategoryItems from "../pages/subCategory/categorySub";
+import MainLayOut from "../layOuts/MainLayOut";
+import Cart from "../pages/cart/Cart";
+import Catalog from "../pages/catalog/Catalog";
+import Detail from "../pages/details/Details";
+import Main from "../pages/main/Main";
+import SubCategoryItems from "../pages/subCategory/CategorySub";
 const AppRoute = () => {
   return (
     <Routes>

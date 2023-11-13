@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import CartReducer from "./slice/addCart";
-import BuyStore from "./slice/buy";
-import CatalogReducer from "./slice/catalog";
-import GetItem from "./slice/getGood";
-import GetSubItemReducer from "./slice/getSubCategory";
-import GoodsReducer from "./slice/goods";
-import loginReducer from "./slice/login";
-import registerReducer from "./slice/register";
-import SearchReducer from "./slice/search";
-import UserInfoReducer from "./slice/userInfo";
+import CartReducer from "./slice/AddCart";
+import BuyStore from "./slice/Buy";
+import CatalogReducer from "./slice/Catalog";
+import GetItem from "./slice/GetGood";
+import GetSubItemReducer from "./slice/GetSubCategory";
+import GoodsReducer from "./slice/Goods";
+import loginReducer from "./slice/Login";
+import registerReducer from "./slice/Register";
+import SearchReducer from "./slice/Search";
+import UserInfoReducer from "./slice/UserInfo";
 export const store = configureStore({
   reducer: {
     login: loginReducer,

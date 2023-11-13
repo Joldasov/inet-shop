@@ -15,7 +15,7 @@ import type { MenuProps } from "antd";
 import { Dropdown, Input, Space } from "antd";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import Accaunt from "../../../pages/modalWindows/accaunt/accaunt";
+import Accaunt from "../../../pages/modalWindows/accaunt/Accaunt";
 import {
   addRecent,
   addSearch,
@@ -23,8 +23,8 @@ import {
   changeDisplayTrue,
   reset,
   textClear,
-} from "../../../store/slice/search";
-import { fetchSearch } from "../../../store/thunk/searchThunk";
+} from "../../../store/slice/Search";
+import { fetchSearch } from "../../../store/thunk/SearchThunk";
 import { useAppDispatch, useAppSelector } from "../../../utils/helpers/helpers";
 import styles from "./postStyle.module.scss";
 const PostHeader = () => {
@@ -37,17 +37,7 @@ const PostHeader = () => {
 
   const items: MenuProps["items"] = [
     {
-      label: (
-        <UserOutlined
-          style={{
-            fontSize: "50px",
-            textAlign: "center",
-            position: "relative",
-            padding: "10px 60px",
-          }}
-          className={styles.sign}
-        />
-      ),
+      label: <UserOutlined className={styles.userIcon} />,
       key: "0",
       type: "group",
     },
@@ -63,13 +53,12 @@ const PostHeader = () => {
         </div>
       ),
       key: "1",
-      // type: ""
     },
     {
       label: (
-        <NavLink style={{ textDecoration: "none" }} to="/basket">
+        <NavLink className={styles.noTextDexoration} to="/basket">
           <p className={styles.text}>
-            <ShoppingCartOutlined style={{ marginRight: "5px" }} /> Корзинка
+            <ShoppingCartOutlined className={styles.margin} /> Корзинка
           </p>
         </NavLink>
       ),
@@ -81,7 +70,7 @@ const PostHeader = () => {
     {
       label: (
         <p className={styles.text}>
-          <HeartOutlined style={{ marginRight: "5px" }} />
+          <HeartOutlined className={styles.margin} />
           Избранные товары
         </p>
       ),
@@ -90,7 +79,7 @@ const PostHeader = () => {
     {
       label: (
         <p className={styles.text}>
-          <EyeOutlined style={{ marginRight: "5px" }} />
+          <EyeOutlined className={styles.margin} />
           Просмотренные
         </p>
       ),
@@ -99,10 +88,7 @@ const PostHeader = () => {
     {
       label: (
         <p className={styles.text}>
-          <i
-            className="fa-solid fa-code-compare"
-            style={{ marginRight: "5px" }}
-          ></i>
+          <i className="fa-solid fa-code-compare"></i>
           Списки Сравнения
         </p>
       ),
@@ -148,18 +134,10 @@ const PostHeader = () => {
             </NavLink>
           </div>
           <div className={styles.cotolog}>
-            <AppstoreOutlined
-              style={{
-                backgroundColor: "#e52e6b",
-                padding: "6px",
-                color: "white",
-                borderRadius: "50%",
-                fill: "white",
-              }}
-            />
+            <AppstoreOutlined className={styles.cotologIcon} />
             <NavLink
               to="/catalogs"
-              style={{ textDecoration: "none", color: "black" }}
+              className={styles.noTextDecoration}
               onClick={() => dispatch(changeDisplayTrue())}
             >
               <p className={styles.cotolog_text}>Католог товаров</p>
@@ -169,20 +147,12 @@ const PostHeader = () => {
             <Input
               placeholder="Поиск товаров"
               allowClear
-              style={{
-                width: "650px",
-                outline: "none",
-                padding: "11px",
-                paddingLeft: "15px",
-              }}
               className={styles.input}
               prefix={
                 isLoading ? (
-                  <LoadingOutlined style={{ fontSize: "18px" }} />
+                  <LoadingOutlined className={styles.loadingIcon} />
                 ) : (
-                  <MonitorOutlined
-                    style={{ fontSize: "18px", marginRight: "5px" }}
-                  />
+                  <MonitorOutlined className={styles.monitorIcon} />
                 )
               }
               onFocus={() => setModalSearchActive(true)}
@@ -210,7 +180,7 @@ const PostHeader = () => {
               onClick={() => dispatch(changeDisplayFalse())}
             >
               <button className={styles.basket}>
-                <ShoppingCartOutlined style={{ marginRight: "5px" }} /> Корзинка
+                <ShoppingCartOutlined className={styles.shopIcon} /> Корзинка
               </button>
             </NavLink>
           </div>
@@ -226,9 +196,7 @@ const PostHeader = () => {
             <div className={styles.searchInner}>
               {text.length > 0 && fulfilled.length === 0 ? (
                 <div className={styles.nothingFound}>
-                  <QuestionOutlined
-                    style={{ display: "block", fontSize: "22px" }}
-                  />
+                  <QuestionOutlined className={styles.questionIcon} />
                   <p>Ничего не найдено</p>
                 </div>
               ) : text.length === 0 ? (
@@ -236,18 +204,10 @@ const PostHeader = () => {
                   {recent.length > 0 ? (
                     <>
                       <div className={`${styles.suggestion} ${styles.last}`}>
-                        <p
-                          style={{ display: "block" }}
-                          className={`${styles.well_known_word}`}
-                        >
-                          Последние запросы{" "}
+                        <p className={`${styles.well_known_word}`}>
+                          Последние запросы
                           <p
                             className={styles.active}
-                            style={{
-                              color: "#07c",
-                              marginLeft: "90px",
-                              marginTop: "4px",
-                            }}
                             onClick={() => dispatch(reset())}
                           >
                             Очистить
@@ -255,9 +215,7 @@ const PostHeader = () => {
                         </p>
                         <div className={styles.suggestion_box}>
                           <p onClick={() => dispatch(addRecent(recent[0]))}>
-                            <ClockCircleOutlined
-                              style={{ color: "gray", marginRight: "7px" }}
-                            />
+                            <ClockCircleOutlined className={styles.clockIcon} />
 
                             {recent[0]}
                           </p>
@@ -266,13 +224,12 @@ const PostHeader = () => {
                       {recent.slice(1).map((smt) => (
                         <div className={`${styles.suggestion} ${styles.last}`}>
                           <p
-                            style={{ display: "block", width: "167px" }}
-                            className={`${styles.well_known_word}`}
+                            className={`${styles.well_known_word} ${styles.recent}`}
                           ></p>
                           <div className={styles.suggestion_box}>
                             <p onClick={() => dispatch(addRecent(smt))}>
                               <ClockCircleOutlined
-                                style={{ color: "gray", marginRight: "7px" }}
+                                className={styles.clockIcon}
                               />
                               {smt}
                             </p>
@@ -307,7 +264,7 @@ const PostHeader = () => {
                     <div className={styles.suggestion_box}>
                       <NavLink
                         to={`/detail/:${items.id}`}
-                        style={{ color: "black", textDecoration: "none" }}
+                        className={styles.noTextDecoration}
                       >
                         <p
                           onClick={() => {

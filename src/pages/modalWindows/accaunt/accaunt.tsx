@@ -1,15 +1,15 @@
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Input } from "antd";
+import { Form, Input } from "antd";
 import { useEffect, useState } from "react";
-import { addLogin, addPassword } from "../../../store/slice/login";
+import { addLogin, addPassword } from "../../../store/slice/Login";
 import {
   addRegisterLogin,
   addRegisterName,
   addRegisterPassword,
   addRegisterSurname,
-} from "../../../store/slice/register";
-import { fetchLogin } from "../../../store/thunk/loginThunk";
-import { fetchRegister } from "../../../store/thunk/registerThunk";
+} from "../../../store/slice/Register";
+import { fetchLogin } from "../../../store/thunk/LoginThunk";
+import { fetchRegister } from "../../../store/thunk/RegisterThunk";
 import { useAppDispatch, useAppSelector } from "../../../utils/helpers/helpers";
 import styles from "./accaunt.module.scss";
 interface Iactive {
@@ -68,38 +68,52 @@ const Accaunt = ({ active, setActive }: Iactive) => {
           <div>
             <div className={` ${styles.positioning}`}>
               <h1 className={styles.registerText}>Регистрация</h1>
-              <div className={styles.labels}>
-                <label>Имя</label>
-              </div>
-              <Input
-                className={styles.input}
-                onChange={(e) => dispatch(addRegisterName(e.target.value))}
-              />
+              <Form>
+                <Form.Item label="name" name="name">
+                  <div className={styles.labels}>
+                    <label>Имя</label>
+                  </div>
+                  <Input
+                    className={styles.input}
+                    onChange={(e) => dispatch(addRegisterName(e.target.value))}
+                  />
+                </Form.Item>
 
-              <div className={styles.labels}>
-                <label>Фамилия</label>
-              </div>
-              <Input
-                className={styles.input}
-                onChange={(e) => dispatch(addRegisterSurname(e.target.value))}
-              />
-              <div className={styles.labels}>
-                <label>Логин</label>
-              </div>
-              <Input
-                className={styles.input}
-                onChange={(e) => dispatch(addRegisterLogin(e.target.value))}
-              />
-              <div className={styles.labels}>
-                <label>Пароль</label>
-              </div>
-              <Input.Password
-                iconRender={(visible) =>
-                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                }
-                className={styles.input}
-                onChange={(e) => dispatch(addRegisterPassword(e.target.value))}
-              />
+                <Form.Item label="surname" name="surname">
+                  <div className={styles.labels}>
+                    <label>Фамилия</label>
+                  </div>
+                  <Input
+                    className={styles.input}
+                    onChange={(e) =>
+                      dispatch(addRegisterSurname(e.target.value))
+                    }
+                  />
+                </Form.Item>
+                <Form.Item label="login" name="login">
+                  <div className={styles.labels}>
+                    <label>Логин</label>
+                  </div>
+                  <Input
+                    className={styles.input}
+                    onChange={(e) => dispatch(addRegisterLogin(e.target.value))}
+                  />
+                </Form.Item>
+                <Form.Item label="password" name="password">
+                  <div className={styles.labels}>
+                    <label>Пароль</label>
+                  </div>
+                  <Input.Password
+                    iconRender={(visible) =>
+                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                    }
+                    className={styles.input}
+                    onChange={(e) =>
+                      dispatch(addRegisterPassword(e.target.value))
+                    }
+                  />
+                </Form.Item>
+              </Form>
             </div>
             <div className={styles.btn}>
               <button

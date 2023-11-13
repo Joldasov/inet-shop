@@ -6,9 +6,9 @@ import {
 } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { fetchCart } from "../../store/thunk/addCartThunk";
-import { fetchGetItem } from "../../store/thunk/getItemThunk";
-import { fetchUserInfo } from "../../store/thunk/userInfoThunk";
+import { fetchCart } from "../../store/thunk/AddCartThunk";
+import { fetchGetItem } from "../../store/thunk/GetItemThunk";
+import { fetchUserInfo } from "../../store/thunk/UserInfoThunk";
 import { useAppDispatch, useAppSelector } from "../../utils/helpers/helpers";
 import styles from "./details.module.scss";
 
@@ -19,7 +19,7 @@ const Detail = () => {
   const fulfilled = useAppSelector((state) => state.get.status);
   const userInfo = useAppSelector((state) => state.userInfo.true);
   const [num, setNum] = useState(0);
-  const Click = () => {
+  const onClick = () => {
     setNum(num + 1);
   };
 
@@ -57,36 +57,22 @@ const Detail = () => {
           style={{ margin: "0px 150px" }}
         />
         <div className={styles.price}>
-          <h1 >
+          <h1>
             {fulfilled?.price} <span> р.</span>
           </h1>
           <p>
-            <PieChartOutlined
-              style={{
-                fontSize: "19px",
-                color: "#0072bc",
-                marginRight: "7px",
-                marginTop: "10px",
-              }}
-            />
+            <PieChartOutlined className={styles.checkAndPieIcon} />
             От {Math.floor(fulfilled?.price / 12)} р./месяц
             <br /> при оплате частями
           </p>
           <p>
-            <CheckCircleOutlined
-              style={{
-                color: "#0072bc",
-                fontSize: "19px",
-                marginRight: "7px",
-                marginTop: "10px",
-              }}
-            />
-            В наличий {fulfilled.availableAmount} штук
+            <CheckCircleOutlined className={styles.checkAndPieIcon} />В наличий{" "}
+            {fulfilled.availableAmount} штук
           </p>
         </div>
         <div className={styles.add}>
           <button className={styles.favor}>
-            <StarOutlined style={{ fontSize: "19px", marginRight: "6px" }} />
+            <StarOutlined />
             Добавить в избранное
           </button>
           {userInfo.data?.cart.filter((item) => item === fulfilled.id).length >
@@ -95,7 +81,7 @@ const Detail = () => {
               <button
                 onClick={() => {
                   dispatch(fetchCart(id));
-                  Click();
+                  onClick();
                 }}
                 className={styles.added}
                 style={{ textDecoration: "underline" }}
@@ -107,7 +93,7 @@ const Detail = () => {
             <button
               onClick={() => {
                 dispatch(fetchCart(id));
-                Click();
+                onClick();
               }}
               className={styles.cart}
             >
@@ -117,7 +103,7 @@ const Detail = () => {
         </div>
       </div>
       <div className={styles.moreDetails}>
-        <h1 style={{ fontWeight: "600" }}>О таваре</h1>
+        <h1>О таваре</h1>
         <p>{fulfilled?.description}</p>
       </div>
     </div>

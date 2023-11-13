@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchLogin } from "../thunk/loginThunk";
+import { fetchLogin } from "../thunk/LoginThunk";
 
 export interface loginState {
   login: string;
@@ -21,10 +21,10 @@ export const Login = createSlice({
   name: "login",
   initialState,
   reducers: {
-    addLogin: (state, action) => {
+    addLogin: (state, action: { payload: string; type: string }) => {
       state.login = action.payload;
     },
-    addPassword: (state, action) => {
+    addPassword: (state, action: { payload: string; type: string }) => {
       state.password = action.payload;
     },
   },
@@ -42,7 +42,6 @@ export const Login = createSlice({
     },
   },
 });
-
 
 export const { addLogin, addPassword } = Login.actions;
 

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUserInfo } from "../thunk/userInfoThunk";
+import { fetchUserInfo } from "../thunk/UserInfoThunk";
 
 export interface registerState {
   error: string;
@@ -32,7 +32,6 @@ export const UserInfo = createSlice({
     },
   },
 });
-
 
 export const {} = UserInfo.actions;
 

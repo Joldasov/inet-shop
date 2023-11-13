@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCart } from "../thunk/addCartThunk";
+import { fetchCart } from "../thunk/AddCartThunk";
 interface cartState {
   isLoading: boolean;
   error: string;
@@ -71,7 +71,7 @@ export const Cart = createSlice({
         }
       );
     },
-    Increament: (state, action) => {
+    Increament: (state, action: { payload: string; type: string }) => {
       state.data = state.data.map(
         (item: {
           id: string;
@@ -97,7 +97,7 @@ export const Cart = createSlice({
         }
       );
     },
-    Discreament: (state, action) => {
+    Discreament: (state, action: { payload: string; type: string }) => {
       state.data = state.data.map(
         (item: {
           id: string;
@@ -123,7 +123,7 @@ export const Cart = createSlice({
         }
       );
     },
-    Items: (state, action) => {
+    Items: (state, action: { payload: any; type: string }) => {
       state.items = action.payload.map(
         (item: { id: string; amount: number }) => {
           return {

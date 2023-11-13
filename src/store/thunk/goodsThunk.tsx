@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { $authHost } from "../../services/service";
+import { $authHost } from "../../services/Service";
 import { thunkNames } from "../../utils/const/thunkNames";
 interface IGoodsElec {
   elec: string;

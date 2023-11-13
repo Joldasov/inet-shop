@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { fetchCart } from "../../store/thunk/addCartThunk";
-import { fetchUserInfo } from "../../store/thunk/userInfoThunk";
+import { fetchCart } from "../../store/thunk/AddCartThunk";
+import { fetchUserInfo } from "../../store/thunk/UserInfoThunk";
 import { useAppDispatch, useAppSelector } from "../../utils/helpers/helpers";
 import styles from "./categorySub.module.scss";
 const SubCategoryItems = () => {
@@ -29,15 +29,11 @@ const SubCategoryItems = () => {
           <div className={styles.box}>
             <div className={styles.imgBox}>
               <NavLink to={`/detail/:${smt.id}`}>
-                <img
-                  src={smt.imageUrls[0]}
-                />
+                <img src={smt.imageUrls[0]} />
               </NavLink>
             </div>
             <div>
-              <h1
-               
-              >
+              <h1>
                 {smt.price} <span>р.</span>
               </h1>
               <NavLink

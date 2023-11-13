@@ -1,18 +1,18 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { fetchCart } from "../../../store/thunk/addCartThunk";
+import { fetchCart } from "../../../store/thunk/AddCartThunk";
 import {
   fetchGoodsComputers_peripherals,
   fetchGoodsElectronics,
   fetchGoodsFurniture,
   fetchGoodsHobbies,
-} from "../../../store/thunk/goodsThunk";
-import { fetchUserInfo } from "../../../store/thunk/userInfoThunk";
+} from "../../../store/thunk/GoodsThunk";
+import { fetchUserInfo } from "../../../store/thunk/UserInfoThunk";
 import { useAppDispatch, useAppSelector } from "../../../utils/helpers/helpers";
 import styles from "./all.module.scss";
-import Offers from "./offers/offers";
-import PopularGoods from "./popular/popularGoods";
+import Offers from "./offers/Offers";
+import PopularGoods from "./popular/PopularGoods";
 
 const All = () => {
   const [active1, setActive1] = useState(true);
@@ -178,9 +178,7 @@ const All = () => {
                   <div className={styles.box}>
                     <div className={styles.imgBox}>
                       <NavLink to={`/detail/:${smt.id}`}>
-                        <img
-                          src={smt.imageUrls[0]}
-                        />
+                        <img src={smt.imageUrls[0]} />
                       </NavLink>
                     </div>
                     <div>
@@ -208,9 +206,7 @@ const All = () => {
                       </NavLink>
                     </div>
                     <div>
-                      <p
-                       className={styles.orderTime}
-                      >
+                      <p className={styles.orderTime}>
                         Курьером – 23 Окт <br /> Самовывоз – 22 Окт
                       </p>
                     </div>

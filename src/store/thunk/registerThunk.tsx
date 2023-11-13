@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { $api } from "../../services/service";
+import { $api } from "../../services/Service";
 import { endpoints } from "../../utils/const/endpoints";
 import { thunkNames } from "../../utils/const/thunkNames";
 

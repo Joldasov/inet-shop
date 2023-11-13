@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchGetItem } from "../thunk/getItemThunk";
+import { fetchGetItem } from "../thunk/GetItemThunk";
 export interface getItemState {
   error: string;
   isLoading: boolean;

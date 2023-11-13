@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchBuy } from "../thunk/buyThunk";
+import { fetchBuy } from "../thunk/BuyThunk";
 
 export interface BuyState {
   error: [];

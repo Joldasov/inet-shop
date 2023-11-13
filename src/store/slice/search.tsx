@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchSearch } from "../thunk/searchThunk";
+import { fetchSearch } from "../thunk/SearchThunk";
 
 export interface searchState {
   error: string;
@@ -23,10 +23,10 @@ export const Search = createSlice({
   name: "search",
   initialState,
   reducers: {
-    addSearch: (state, action) => {
+    addSearch: (state, action: { payload: string; type: string }) => {
       state.text = action.payload;
     },
-    addRecent: (state, action) => {
+    addRecent: (state, action: { payload: string; type: string }) => {
       state.recent.push(action.payload);
     },
     reset: (state) => {
@@ -57,7 +57,6 @@ export const Search = createSlice({
     },
   },
 });
-
 
 export const {
   addSearch,

@@ -1,18 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { $api } from "../../services/service";
-// import axios from "axios";
-
-export const fetchCatalog = createAsyncThunk(
-  "Get/Catalog",
-  async (__, thunkAPI) => {
-    try {
-      const { data } = await $api.get("/categories");
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error as Error);
-    }
-  }
-);
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchCatalog } from "../thunk/CatalogThunk";
 export interface getItemState {
   error: string;
   isLoading: boolean;
@@ -44,7 +31,6 @@ export const Catalog = createSlice({
     },
   },
 });
-
 
 export const {} = Catalog.actions;
 

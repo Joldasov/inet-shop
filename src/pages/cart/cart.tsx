@@ -14,12 +14,12 @@ import {
   Discreament,
   Increament,
   Items,
-} from "../../store/slice/addCart";
-import { fetchInFavor } from "../../store/thunk/addFavoriteThunk";
-import { fetchBuy } from "../../store/thunk/buyThunk";
-import { fetchCartDelete } from "../../store/thunk/deleteCartThunk";
-import { fetchGetItem } from "../../store/thunk/getItemThunk";
-import { fetchUserInfo } from "../../store/thunk/userInfoThunk";
+} from "../../store/slice/AddCart";
+import { fetchInFavor } from "../../store/thunk/AddFavoriteThunk";
+import { fetchBuy } from "../../store/thunk/BuyThunk";
+import { fetchCartDelete } from "../../store/thunk/DeleteCartThunk";
+import { fetchGetItem } from "../../store/thunk/GetItemThunk";
+import { fetchUserInfo } from "../../store/thunk/UserInfoThunk";
 import { useAppDispatch, useAppSelector } from "../../utils/helpers/helpers";
 import styles from "./cart.module.scss";
 
@@ -57,7 +57,13 @@ const Cart = () => {
     setComment("");
     setPhone("");
   };
-  const SubmitOrder = () => {
+
+  const onFinish = (values) => {
+    setName(values.name);
+    setAddress(values.address);
+    setComment(values.comment);
+    setPhone(values.phone);
+    setTimeToDeliver(values.timeToDeliver);
     dispatch(
       fetchBuy({
         items,
@@ -68,6 +74,9 @@ const Cart = () => {
         comment,
       })
     );
+  };
+
+  const SubmitOrder = () => {
     onClose();
   };
 
@@ -111,12 +120,9 @@ const Cart = () => {
                 <div className={styles.goodInner}>
                   <img
                     src={item?.imageUrls?.length > 0 ? item?.imageUrls[0] : ""}
-                   
                   />
                   <div className={styles.goodInnerPost}>
-                    <div
-                      className={styles.goodInnerPostInner}
-                    >
+                    <div className={styles.goodInnerPostInner}>
                       <p className={styles.info}>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Minus, quo.
@@ -142,7 +148,7 @@ const Cart = () => {
                             dispatch(Increament(item.id));
                           }}
                         >
-                          <PlusOutlined style={{ color: "black" }} />
+                          <PlusOutlined className={styles.plusIcon} />
                         </button>
                       </div>
                       <p className={styles.priceText}>
@@ -151,14 +157,10 @@ const Cart = () => {
                     </div>
                     <div className={styles.orderTime}>
                       <p>
-                        <span >Доставка:</span>
-                        <CarOutlined style={{ marginLeft: "10px" }} />
-                        <span>
-                          Курьером 02.11
-                        </span>
-                        <EnvironmentOutlined
-                          style={{ marginRight: "5px", marginLeft: "20px" }}
-                        />
+                        <span>Доставка:</span>
+                        <CarOutlined className={styles.carIcon} />
+                        <span>Курьером 02.11</span>
+                        <EnvironmentOutlined className={styles.natureIcon} />
                         Самовывоз 01.11
                       </p>
                     </div>
@@ -167,7 +169,7 @@ const Cart = () => {
                         className={styles.delete}
                         onClick={() => dispatch(fetchCartDelete(item.id))}
                       >
-                        <DeleteOutlined style={{ marginRight: "5px" }} />
+                        <DeleteOutlined className={styles.deleteIcon} />
                         Удалить
                       </button>
 
@@ -176,7 +178,6 @@ const Cart = () => {
                         onClick={() => dispatch(fetchInFavor(item.id))}
                       >
                         <HeartOutlined
-                          style={{ marginRight: "5px" }}
                           className={item?.isFavorite ? styles.favorIcon : ""}
                         />
                         В избранное
@@ -201,25 +202,16 @@ const Cart = () => {
               <p className={styles.allPrice}>{Math.floor(AllPrice)}</p>
             </div>
             <div className={styles.bonus}>
-              <CreditCardOutlined
-                style={{
-                  color: "#7b3eb8",
-                  fontSize: "21px",
-                  marginRight: "20px",
-                }}
-              />
-              <p >
-                <span>
-                  от 1,31 бонусных баллов
-                </span>{" "}
-                на следующие покупки
+              <CreditCardOutlined className={styles.creditIcon} />
+              <p>
+                <span>от 1,31 бонусных баллов</span> на следующие покупки
               </p>
             </div>
             <div className={styles.aply}>
               <button onClick={() => showDrawer()}>Оформить заказ</button>
             </div>
             <div className={styles.someText}>
-              <p style={{ color: "gray", fontSize: "18px" }}>
+              <p>
                 * Способ и время доставки можно выбрать при оформлении заказа.
                 Дата доставки заказа рассчитывается по максимальной дате
                 доставки товаров в корзине.
@@ -257,16 +249,17 @@ const Cart = () => {
             wrapperCol={{ flex: 1 }}
             colon={false}
             style={{ maxWidth: 900, marginLeft: "20px", maxHeight: "600px" }}
+            onFinish={onFinish}
           >
             <div className={styles.someText}>
-              <h1 style={{ fontWeight: "600" }}>Oформление заказа</h1>
+              <h1>Oформление заказа</h1>
               <p>
                 Для оформления заказа войдите в ваш аккаунт или продолжите
                 <br /> как новый клиент
               </p>
             </div>
             <Form.Item label="name" name="name" rules={[{ required: false }]}>
-              <Input onChange={(e) => setName(e.target.value)} />
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -274,7 +267,7 @@ const Cart = () => {
               name="address"
               rules={[{ required: false }]}
             >
-              <Input onChange={(e) => setAddress(e.target.value)} />
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -282,10 +275,10 @@ const Cart = () => {
               name="timeToDeliver"
               rules={[{ required: false }]}
             >
-              <Input onChange={(e) => setTimeToDeliver(e.target.value)} />
+              <Input />
             </Form.Item>
             <Form.Item label="phone" name="phone" rules={[{ required: false }]}>
-              <Input onChange={(e) => setPhone(e.target.value)} />
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -293,7 +286,7 @@ const Cart = () => {
               name="comment"
               rules={[{ required: false }]}
             >
-              <Input onChange={(e) => setComment(e.target.value)} />
+              <Input />
             </Form.Item>
 
             <Form.Item
@@ -304,44 +297,16 @@ const Cart = () => {
                 display: "flex",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  width: "560px",
-                  marginTop: "2px",
-                }}
-              >
-                <p
-                  style={{
-                    fontWeight: "600",
-                    fontSize: "18px",
-                    textAlign: "left",
-                  }}
-                >
+              <div className={styles.modalOrder}>
+                <p>
                   {AllPrice} р.
                   <br />
-                  <span
-                    style={{
-                      fontWeight: "500",
-                      fontSize: "15px",
-                      color: "gray",
-                    }}
-                  >
-                    Стоимость заказа
-                  </span>
+                  <span>Стоимость заказа</span>
                 </p>
                 <Button
                   type="primary"
                   htmlType="submit"
-                  style={{
-                    marginRight: "0px",
-                    width: "180px",
-                    height: "48px",
-                    fontSize: "18px",
-                    backgroundColor: "#e52e6b",
-                  }}
+                  className={styles.submitBtn}
                   onClick={() => SubmitOrder()}
                 >
                   Submit

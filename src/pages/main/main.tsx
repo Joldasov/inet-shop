@@ -1,7 +1,7 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import All from "./components/All";
-import Brands from "./components/brands/brands";
+import Brands from "./components/brands/Brands";
 import styles from "./main.module.scss";
 const Main = () => {
   const [offset, setOffset] = useState<number>(0);
