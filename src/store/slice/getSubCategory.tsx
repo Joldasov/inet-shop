@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchGetSubItems } from "../thunk/SubItemsThunk";
+import { sliceNames } from "../../utils/const/SliceNames";
 
 export interface getSubItemState {
   error: string;
@@ -14,7 +15,7 @@ const initialState: getSubItemState = {
 };
 
 export const GetSubItem = createSlice({
-  name: "getSub",
+  name: sliceNames.USER_GETSUBITEM,
   initialState,
   reducers: {},
   extraReducers: {

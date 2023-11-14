@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchCart } from "../thunk/AddCartThunk";
+import { sliceNames } from "../../utils/const/SliceNames";
 interface cartState {
   isLoading: boolean;
   error: string;
@@ -47,7 +48,7 @@ const initialState: cartState = {
 };
 
 export const Cart = createSlice({
-  name: "cart",
+  name: sliceNames.USER_CART,
   initialState,
   reducers: {
     DataAdd: (state, action) => {

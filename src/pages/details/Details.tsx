@@ -9,7 +9,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { fetchCart } from "../../store/thunk/AddCartThunk";
 import { fetchGetItem } from "../../store/thunk/GetItemThunk";
 import { fetchUserInfo } from "../../store/thunk/UserInfoThunk";
-import { useAppDispatch, useAppSelector } from "../../utils/helpers/helpers";
+import { useAppDispatch, useAppSelector } from "../../utils/helpers/Helpers";
 import styles from "./details.module.scss";
 
 const Detail = () => {

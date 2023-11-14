@@ -13,7 +13,7 @@ import { fetchUserInfo } from "../../../../store/thunk/UserInfoThunk";
 import {
   useAppDispatch,
   useAppSelector,
-} from "../../../../utils/helpers/helpers";
+} from "../../../../utils/helpers/Helpers";
 import styles from "./popularGoods.module.scss";
 
 const PopularGoods = () => {
@@ -142,48 +142,30 @@ const PopularGoods = () => {
             <div className={styles.box}>
               <div className={styles.imgBox}>
                 <NavLink to={`/detail/:${smt.id}`}>
-                  <img
-                    src={smt.imageUrls[0]}
-                    style={{ width: "128px", height: "128px" }}
-                  />
+                  <img src={smt.imageUrls[0]} width={128} height={128} />
                 </NavLink>
               </div>
-              <div>
-                <h1
-                  style={{
-                    fontSize: "19px",
-                    fontWeight: "600",
-                    marginTop: "10px",
-                  }}
-                >
+              <>
+                <h1 className={styles.price}>
                   {smt.price} <span>р.</span>
                 </h1>
                 <NavLink
                   to={`/detail/:${smt.id}`}
-                  style={{ textDecoration: "none", color: "black" }}
+                  className={styles.noTextDecoration}
                 >
-                  <p
-                    style={{ fontSize: "15px", marginTop: "5px" }}
-                    className={styles.navLink}
-                  >
+                  <p className={styles.text}>
                     {smt.name.length > 40
                       ? `${smt.name.slice(0, 40)}...`
                       : smt.name}
                   </p>
                 </NavLink>
-              </div>
-              <div>
-                <p
-                  style={{
-                    color: "gray",
-                    fontSize: "12px",
-                    marginTop: "5px",
-                  }}
-                >
+              </>
+              <>
+                <p className={styles.time}>
                   Курьером – 23 Окт <br /> Самовывоз – 22 Окт
                 </p>
-              </div>
-              <div style={{ textAlign: "center" }}>
+              </>
+              <div className={styles.inCart}>
                 <button
                   className={
                     userInfo.data?.cart.filter((item) => item === smt.id)

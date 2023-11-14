@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchRegister } from "../thunk/RegisterThunk";
+import { sliceNames } from "../../utils/const/SliceNames";
 export interface registerState {
   login: string;
   password: string;
@@ -21,7 +22,7 @@ const initialState: registerState = {
 };
 
 export const Register = createSlice({
-  name: "register",
+  name: sliceNames.AUTH_REGISTER,
   initialState,
   reducers: {
     addRegisterLogin: (state, action: { payload: string; type: string }) => {

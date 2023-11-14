@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { changeDisplayFalse } from "../../store/slice/Search";
 import { fetchCatalog } from "../../store/thunk/CatalogThunk";
 import { fetchGetSubItems } from "../../store/thunk/SubItemsThunk";
-import { useAppDispatch, useAppSelector } from "../../utils/helpers/helpers";
+import { useAppDispatch, useAppSelector } from "../../utils/helpers/Helpers";
 import styles from "./catalog.module.scss";
 
 const Catalog = () => {
@@ -48,7 +48,7 @@ const Catalog = () => {
         {categories[num]?.subCategories.map(({ name, id }) => (
           <NavLink
             to="/subCategory"
-            style={{ textDecoration: "none", color: "black" }}
+            className={styles.noTextDecoration}
             onClick={() => {
               dispatch(fetchGetSubItems({ category, id }));
               dispatch(changeDisplayFalse());

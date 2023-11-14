@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchSearch } from "../thunk/SearchThunk";
+import { sliceNames } from "../../utils/const/SliceNames";
 
 export interface searchState {
   error: string;
@@ -20,7 +21,7 @@ const initialState: searchState = {
 };
 
 export const Search = createSlice({
-  name: "search",
+  name: sliceNames.USER_SEARCH,
   initialState,
   reducers: {
     addSearch: (state, action: { payload: string; type: string }) => {

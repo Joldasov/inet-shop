@@ -25,7 +25,7 @@ import {
   textClear,
 } from "../../../store/slice/Search";
 import { fetchSearch } from "../../../store/thunk/SearchThunk";
-import { useAppDispatch, useAppSelector } from "../../../utils/helpers/helpers";
+import { useAppDispatch, useAppSelector } from "../../../utils/helpers/Helpers";
 import styles from "./postStyle.module.scss";
 const PostHeader = () => {
   const [modalActive, setModalActive] = useState<boolean>(false);

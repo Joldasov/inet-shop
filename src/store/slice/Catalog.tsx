@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchCatalog } from "../thunk/CatalogThunk";
+import { sliceNames } from "../../utils/const/SliceNames";
 export interface getItemState {
   error: string;
   isLoading: boolean;
@@ -13,7 +14,7 @@ const initialState: getItemState = {
 };
 
 export const Catalog = createSlice({
-  name: "catalog",
+  name: sliceNames.USER_CATALOG,
   initialState,
   reducers: {},
   extraReducers: {

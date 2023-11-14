@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { sliceNames } from "../../utils/const/SliceNames";
 
 export interface goodsState {
   array: [];
@@ -9,7 +10,7 @@ const initialState: goodsState = {
 };
 
 export const Goods = createSlice({
-  name: "Goods",
+  name: sliceNames.USER_GOODS,
   initialState,
   reducers: {
     addArray: (state, action) => {

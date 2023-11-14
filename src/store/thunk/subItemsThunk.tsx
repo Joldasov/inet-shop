@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { $api } from "../../services/Service";
-import { thunkNames } from "../../utils/const/thunkNames";
+import { thunkNames } from "../../utils/const/ThunkNames";
 interface IText {
   category: string;
   id: string;

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchLogin } from "../thunk/LoginThunk";
+import { sliceNames } from "../../utils/const/SliceNames";
 
 export interface loginState {
   login: string;
@@ -18,7 +19,7 @@ const initialState: loginState = {
 };
 
 export const Login = createSlice({
-  name: "login",
+  name: sliceNames.AUTH_LOGIN,
   initialState,
   reducers: {
     addLogin: (state, action: { payload: string; type: string }) => {

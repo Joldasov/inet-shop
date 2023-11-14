@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchBuy } from "../thunk/BuyThunk";
+import { sliceNames } from "../../utils/const/SliceNames";
 
 export interface BuyState {
   error: [];
@@ -14,7 +15,7 @@ const initialState: BuyState = {
 };
 
 export const Buy = createSlice({
-  name: "buy",
+  name: sliceNames.USER_BUY,
   initialState,
   reducers: {},
   extraReducers: {
@@ -32,7 +33,6 @@ export const Buy = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const {} = Buy.actions;
 
 export default Buy.reducer;

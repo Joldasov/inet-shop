@@ -121,9 +121,27 @@
       color: #07c;
     }
   }
-  .navLink {
+  .text {
+    color: black;
     &:hover {
       color: #ce3467;
     }
   }
+}
+.noTextDecoration{
+  text-decoration: none;
+  color: black;
+}
+.price{
+  font-size: 19px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+.time{
+  color: gray;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.inCart{
+ text-align: center
 }

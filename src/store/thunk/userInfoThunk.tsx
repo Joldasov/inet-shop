@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { $authHost } from "../../services/Service";
-import { endpoints } from "../../utils/const/endpoints";
-import { thunkNames } from "../../utils/const/thunkNames";
+import { endpoints } from "../../utils/const/Endpoints";
+import { thunkNames } from "../../utils/const/ThunkNames";
 export const fetchUserInfo = createAsyncThunk(
   thunkNames.AUTH_USERINFO,
   async (__, thunkAPI) => {

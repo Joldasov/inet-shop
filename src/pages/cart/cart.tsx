@@ -20,7 +20,7 @@ import { fetchBuy } from "../../store/thunk/BuyThunk";
 import { fetchCartDelete } from "../../store/thunk/DeleteCartThunk";
 import { fetchGetItem } from "../../store/thunk/GetItemThunk";
 import { fetchUserInfo } from "../../store/thunk/UserInfoThunk";
-import { useAppDispatch, useAppSelector } from "../../utils/helpers/helpers";
+import { useAppDispatch, useAppSelector } from "../../utils/helpers/Helpers";
 import styles from "./cart.module.scss";
 
 const Cart = () => {

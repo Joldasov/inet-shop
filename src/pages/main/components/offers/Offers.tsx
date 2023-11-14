@@ -3,15 +3,11 @@ import styles from "./offers.module.scss";
 const Offers = () => {
   return (
     <div className={styles.wrapper}>
-      <h1
-        
-      >
-        Предложения
-      </h1>
+      <h1>Предложения</h1>
       <div className={styles.box_inner}>
         <div className={`${styles.box} ${styles.orange}`}>
-          <p style={{ fontWeight: "650" }}>Более 90 пунктов самовывоза</p>
-          <p style={{ fontSize: "15px", marginTop: "5px" }}>
+          <p className={styles.fontWeight}>Более 90 пунктов самовывоза</p>
+          <p className={styles.text}>
             Получите заказ в кратчайшие сроки
           </p>
 
@@ -22,8 +18,8 @@ const Offers = () => {
           />
         </div>
         <div className={`${styles.box} ${styles.pink}`}>
-          <p style={{ fontWeight: "650" }}>Доставка в любую точку Беларуси</p>
-          <p style={{ fontSize: "15px", marginTop: "5px" }}>
+          <p className={styles.fontWeight}>Доставка в любую точку Беларуси</p>
+          <p className={styles.text}>
             Заказывайте товары прямо к себе домой
           </p>
 
@@ -34,8 +30,8 @@ const Offers = () => {
           />
         </div>
         <div className={`${styles.box} ${styles.blue}`}>
-          <p style={{ fontWeight: "650" }}>Оплата частями</p>
-          <p style={{ fontSize: "15px", marginTop: "5px" }}>
+          <p className={styles.fontWeight}>Оплата частями</p>
+          <p className={styles.text}>
             Покупайте больше сейчас – платите частями
           </p>
 
@@ -46,8 +42,8 @@ const Offers = () => {
           />
         </div>
         <div className={`${styles.box} ${styles.green}`}>
-          <p style={{ fontWeight: "650" }}>Бонусная программа</p>
-          <p style={{ fontSize: "15px", marginTop: "5px" }}>
+          <p className={styles.fontWeight}>Бонусная программа</p>
+          <p className={styles.text}>
             Накапливайте бонусные баллы и оплачивайте ими покупки
           </p>
 
@@ -58,8 +54,8 @@ const Offers = () => {
           />
         </div>
         <div className={`${styles.box} ${styles.violet}`}>
-          <p style={{ fontWeight: "650" }}>Подарочные сертификаты</p>
-          <p style={{ fontSize: "15px", marginTop: "5px" }}>
+          <p className={styles.fontWeight}>Подарочные сертификаты</p>
+          <p className={styles.text}>
             Подарите сертификаты вашим близким
           </p>
 

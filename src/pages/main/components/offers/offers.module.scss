@@ -2,7 +2,7 @@
   width: 1500px;
   margin: 0 auto;
   h1 {
-    // style={{ fontSize: "25px", fontWeight: "600", paddingBottom: "20px" }}
+
     font-size: 25px;
     font-weight: 600;
     padding-bottom: 20px;
@@ -23,6 +23,13 @@
       background-position-x: 100%;
       border: 1px solid rgb(216, 216, 216);
       border-radius: 7px;
+      .fontWeight{
+        font-weight: 650;
+      }
+      .text{
+        font-size: 15px;
+        margin-top: 5px;
+      }
     }
     .orange {
       background-image: url("https://static.21vek.by/desktop/_next/static/images/pickupPointsBg.a373533a.png");

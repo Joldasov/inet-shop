@@ -10,7 +10,7 @@ import {
 } from "../../../store/slice/Register";
 import { fetchLogin } from "../../../store/thunk/LoginThunk";
 import { fetchRegister } from "../../../store/thunk/RegisterThunk";
-import { useAppDispatch, useAppSelector } from "../../../utils/helpers/helpers";
+import { useAppDispatch, useAppSelector } from "../../../utils/helpers/Helpers";
 import styles from "./accaunt.module.scss";
 interface Iactive {
   active: boolean;

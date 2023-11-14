@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchGetItem } from "../thunk/GetItemThunk";
+import { sliceNames } from "../../utils/const/SliceNames";
 export interface getItemState {
   error: string;
   isLoading: boolean;
@@ -17,7 +18,7 @@ const initialState: getItemState = {
 };
 
 export const GetItem = createSlice({
-  name: "get",
+  name: sliceNames.USER_GETITEM,
   initialState,
   reducers: {},
   extraReducers: {
@@ -37,7 +38,6 @@ export const GetItem = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const {} = GetItem.actions;
 
 export default GetItem.reducer;

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { fetchCart } from "../../store/thunk/AddCartThunk";
 import { fetchUserInfo } from "../../store/thunk/UserInfoThunk";
-import { useAppDispatch, useAppSelector } from "../../utils/helpers/helpers";
+import { useAppDispatch, useAppSelector } from "../../utils/helpers/Helpers";
 import styles from "./categorySub.module.scss";
 const SubCategoryItems = () => {
   const goods = useAppSelector((state) => state.subItem.status);
@@ -38,12 +38,9 @@ const SubCategoryItems = () => {
               </h1>
               <NavLink
                 to={`/detail/:${smt.id}`}
-                style={{ textDecoration: "none", color: "black" }}
+                className={styles.noTextDecoration}
               >
-                <p
-                  style={{ fontSize: "15px", marginTop: "5px" }}
-                  className={styles.navLink}
-                >
+                <p className={styles.textLength}>
                   {smt.name.length > 40
                     ? `${smt.name.slice(0, 40)}...`
                     : smt.name}

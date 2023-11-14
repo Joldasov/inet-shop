@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUserInfo } from "../thunk/UserInfoThunk";
+import { sliceNames } from "../../utils/const/SliceNames";
 
 export interface registerState {
   error: string;
@@ -14,7 +15,7 @@ const initialState: registerState = {
 };
 
 export const UserInfo = createSlice({
-  name: "userInfo",
+  name: sliceNames.AUTH_USERINFO,
   initialState,
   reducers: {},
   extraReducers: {
