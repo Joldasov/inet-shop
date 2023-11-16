@@ -12,16 +12,19 @@ const SubCategoryItems = () => {
   const func = () => {
     setNum(num + 1);
   };
+
+  const onAddCart = () => {
+    dispatch(fetchCart(smt.id));
+    func();
+  };
   useEffect(() => {
     dispatch(fetchUserInfo());
   }, [num]);
   return (
     <div className={styles.wrapper}>
-      <div style={{ paddingTop: "10px" }}>
+      <div className={styles.wrapperInner}>
         <NavLink to="/">
-          <p style={{ color: "gray" }}>
-            Главная <span></span>{" "}
-          </p>
+          <p className={styles.main}>Главная</p>
         </NavLink>
       </div>
       <div className={styles.goods}>
@@ -48,17 +51,11 @@ const SubCategoryItems = () => {
               </NavLink>
             </div>
             <div>
-              <p
-                style={{
-                  color: "gray",
-                  fontSize: "12px",
-                  marginTop: "5px",
-                }}
-              >
+              <p className={styles.orderTime}>
                 Курьером – 23 Окт <br /> Самовывоз – 22 Окт
               </p>
             </div>
-            <div style={{ textAlign: "center" }}>
+            <div className={styles.btns}>
               <button
                 className={
                   userInfo.data?.cart.filter((item) => item === smt.id).length >
@@ -66,10 +63,7 @@ const SubCategoryItems = () => {
                     ? styles.chosen
                     : styles.btn
                 }
-                onClick={() => {
-                  dispatch(fetchCart(smt.id));
-                  func();
-                }}
+                onClick={onAddCart}
               >
                 В корзину
               </button>

@@ -40,6 +40,57 @@ const Accaunt = ({ active, setActive }: Iactive) => {
     }
   };
 
+  const onTurnigFalse = () => {
+    setActive(false);
+    setNotFilled(false);
+    setRegisterActive(false);
+    setPartTimeValueLogin("");
+    setPartTimeValuePassword("");
+  };
+  const onStopPropaganation = (e) => {
+    e.stopPropagation();
+  };
+  const onAddRegisterName = (name: string) => {
+    dispatch(addRegisterName(name));
+  };
+  const onAddRegisterSurname = (surname: string) => {
+    dispatch(addRegisterSurname(surname));
+  };
+  const onAddRegisterLogin = (login: string) => {
+    dispatch(addRegisterLogin(login));
+  };
+  const onAddRegisterPassword = (password: string) => {
+    dispatch(addRegisterPassword(password));
+  };
+
+  const onAddLoginName = (name: string) => {
+    dispatch(addLogin(name));
+    setPartTimeValueLogin(name);
+  };
+  const onAddLoginPassword = (password: string) => {
+    dispatch(addPassword(password));
+    setPartTimeValuePassword(password);
+  };
+  const onActiveRegister = () => {
+    setRegisterActive(true);
+    setPartTimeValueLogin("");
+    setPartTimeValuePassword("");
+  };
+
+  const onRegister = () => {
+    dispatch(
+      fetchRegister({
+        name,
+        surname,
+        registerLogin,
+        registerPassword,
+      })
+    );
+    setActive(false);
+    setRegisterActive(false);
+    setNotFilled(false);
+  };
+
   useEffect(() => {
     if (fulfilled) {
       setActive(false);
@@ -52,30 +103,24 @@ const Accaunt = ({ active, setActive }: Iactive) => {
   return (
     <div
       className={active ? `${styles.active} ${styles.modal}` : styles.modal}
-      onClick={() => {
-        setActive(false);
-        setNotFilled(false);
-        setRegisterActive(false);
-        setPartTimeValueLogin("");
-        setPartTimeValuePassword("");
-      }}
+      onClick={onTurnigFalse}
     >
       <div
         className={styles.modal__content}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => onStopPropaganation(e)}
       >
         {registerActive ? (
           <div>
             <div className={` ${styles.positioning}`}>
               <h1 className={styles.registerText}>Регистрация</h1>
               <Form>
-                <Form.Item  name="name">
+                <Form.Item name="name">
                   <div className={styles.labels}>
                     <label>Имя</label>
                   </div>
                   <Input
                     className={styles.input}
-                    onChange={(e) => dispatch(addRegisterName(e.target.value))}
+                    onChange={(e) => onAddRegisterName(e.target.value)}
                   />
                 </Form.Item>
 
@@ -85,21 +130,19 @@ const Accaunt = ({ active, setActive }: Iactive) => {
                   </div>
                   <Input
                     className={styles.input}
-                    onChange={(e) =>
-                      dispatch(addRegisterSurname(e.target.value))
-                    }
+                    onChange={(e) => onAddRegisterSurname(e.target.value)}
                   />
                 </Form.Item>
-                <Form.Item  name="login">
+                <Form.Item name="login">
                   <div className={styles.labels}>
                     <label>Логин</label>
                   </div>
                   <Input
                     className={styles.input}
-                    onChange={(e) => dispatch(addRegisterLogin(e.target.value))}
+                    onChange={(e) => onAddRegisterLogin(e.target.value)}
                   />
                 </Form.Item>
-                <Form.Item  name="password">
+                <Form.Item name="password">
                   <div className={styles.labels}>
                     <label>Пароль</label>
                   </div>
@@ -108,30 +151,13 @@ const Accaunt = ({ active, setActive }: Iactive) => {
                       visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                     }
                     className={styles.input}
-                    onChange={(e) =>
-                      dispatch(addRegisterPassword(e.target.value))
-                    }
+                    onChange={(e) => onAddRegisterPassword(e.target.value)}
                   />
                 </Form.Item>
               </Form>
             </div>
             <div className={styles.btn}>
-              <button
-                className={styles.registerBtn}
-                onClick={() => {
-                  dispatch(
-                    fetchRegister({
-                      name,
-                      surname,
-                      registerLogin,
-                      registerPassword,
-                    })
-                  );
-                  setActive(false);
-                  setRegisterActive(false);
-                  setNotFilled(false);
-                }}
-              >
+              <button className={styles.registerBtn} onClick={onRegister}>
                 Click
               </button>
             </div>
@@ -146,10 +172,7 @@ const Accaunt = ({ active, setActive }: Iactive) => {
               <input
                 type="text"
                 className={styles.input}
-                onChange={(e) => {
-                  dispatch(addLogin(e.target.value));
-                  setPartTimeValueLogin(e.target.value);
-                }}
+                onChange={(e) => onAddLoginName(e.target.value)}
                 value={partTimeValueLogin}
               />
             </div>
@@ -165,32 +188,17 @@ const Accaunt = ({ active, setActive }: Iactive) => {
                   visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                 }
                 className={styles.input}
-                onChange={(e) => {
-                  dispatch(addPassword(e.target.value));
-                  setPartTimeValuePassword(e.target.value);
-                }}
+                onChange={(e) => onAddLoginPassword(e.target.value)}
                 value={partTimeValuePassword}
               />
             </div>
             <div className={styles.btn}>
-              <button
-                className={styles.entranceBtn}
-                onClick={() => {
-                  handleBtn();
-                }}
-              >
+              <button className={styles.entranceBtn} onClick={handleBtn}>
                 Войти
               </button>
             </div>
             <div className={styles.text}>
-              <p
-                className={styles.register}
-                onClick={() => {
-                  setRegisterActive(true);
-                  setPartTimeValueLogin("");
-                  setPartTimeValuePassword("");
-                }}
-              >
+              <p className={styles.register} onClick={onActiveRegister}>
                 Регистрация
               </p>
             </div>
