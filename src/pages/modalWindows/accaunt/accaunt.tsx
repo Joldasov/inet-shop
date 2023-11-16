@@ -69,7 +69,7 @@ const Accaunt = ({ active, setActive }: Iactive) => {
             <div className={` ${styles.positioning}`}>
               <h1 className={styles.registerText}>Регистрация</h1>
               <Form>
-                <Form.Item label="name" name="name">
+                <Form.Item  name="name">
                   <div className={styles.labels}>
                     <label>Имя</label>
                   </div>
@@ -79,7 +79,7 @@ const Accaunt = ({ active, setActive }: Iactive) => {
                   />
                 </Form.Item>
 
-                <Form.Item label="surname" name="surname">
+                <Form.Item name="surname">
                   <div className={styles.labels}>
                     <label>Фамилия</label>
                   </div>
@@ -90,7 +90,7 @@ const Accaunt = ({ active, setActive }: Iactive) => {
                     }
                   />
                 </Form.Item>
-                <Form.Item label="login" name="login">
+                <Form.Item  name="login">
                   <div className={styles.labels}>
                     <label>Логин</label>
                   </div>
@@ -99,7 +99,7 @@ const Accaunt = ({ active, setActive }: Iactive) => {
                     onChange={(e) => dispatch(addRegisterLogin(e.target.value))}
                   />
                 </Form.Item>
-                <Form.Item label="password" name="password">
+                <Form.Item  name="password">
                   <div className={styles.labels}>
                     <label>Пароль</label>
                   </div>

@@ -12,7 +12,7 @@ const Catalog = () => {
   const [num, setNum] = useState<number>(0);
   const [category, setCategory] = useState("appliances");
 
-  const categoryHandle = (name) => {
+  const categoryHandle = (name: string) => {
     if (name === "Appliances") {
       setNum(0);
     } else if (name === "Electronics") {
@@ -25,34 +25,48 @@ const Catalog = () => {
       setNum(4);
     }
   };
+  const onChosen = (name: string, id: string) => {
+    categoryHandle(name);
+    setCategory(id);
+  };
+
+  const onNavLinkClick = (category: string, id: string) => {
+    dispatch(fetchGetSubItems({ category, id }));
+    dispatch(changeDisplayFalse());
+  };
   useEffect(() => {
     dispatch(fetchCatalog());
   }, []);
-
+  console.log(categories);
   return (
     <div className={styles.wrapper}>
       <div className={styles.categories}>
-        {categories.map((item) => (
-          <div
-            className={styles.box}
-            onClick={() => {
-              categoryHandle(item?.name);
-              setCategory(item.id);
-            }}
-          >
-            <p>{item.name}</p>
-          </div>
-        ))}
+        {categories.map(
+          (item: {
+            id: string;
+            name: string;
+            subCategories: [
+              {
+                id: string;
+                name: string;
+              }
+            ];
+          }) => (
+            <div
+              className={styles.box}
+              onClick={() => onChosen(item.name, item.id)}
+            >
+              <p>{item.name}</p>
+            </div>
+          )
+        )}
       </div>
       <div className={styles.subCategories}>
         {categories[num]?.subCategories.map(({ name, id }) => (
           <NavLink
             to="/subCategory"
             className={styles.noTextDecoration}
-            onClick={() => {
-              dispatch(fetchGetSubItems({ category, id }));
-              dispatch(changeDisplayFalse());
-            }}
+            onClick={() => onNavLinkClick(category, id)}
           >
             <div className={styles.subCategoryBox}>
               <p>{name}</p>

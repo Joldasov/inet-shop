@@ -21,8 +21,8 @@ const Main = () => {
   return (
     <div className={styles.mainBox}>
       <div className={styles.sliderBox}>
-        <button className={styles.prev} onClick={() => handleOffsetPrev()}>
-          <LeftOutlined style={{ color: "#e52e6b" }} />
+        <button className={styles.prev} onClick={ handleOffsetPrev}>
+          <LeftOutlined className={styles.color} />
         </button>
         <div className={styles.slider}>
           <div className={styles.slider_inner} style={{ left: `${-offset}px` }}>
@@ -34,8 +34,8 @@ const Main = () => {
             <div className={styles.example6}></div>
           </div>
         </div>
-        <button className={styles.next} onClick={() => handleOffsetNext()}>
-          <RightOutlined style={{ color: "#e52e6b" }} />
+        <button className={styles.next} onClick={handleOffsetNext}>
+          <RightOutlined className={styles.color} />
         </button>
       </div>
       <Brands />

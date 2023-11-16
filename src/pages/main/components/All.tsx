@@ -13,13 +13,9 @@ import { useAppDispatch, useAppSelector } from "../../../utils/helpers/Helpers";
 import styles from "./all.module.scss";
 import Offers from "./offers/Offers";
 import PopularGoods from "./popular/PopularGoods";
+import { ALlNames } from "./utils/const/AllNames";
 
 const All = () => {
-  const [active1, setActive1] = useState(true);
-  const [active2, setActive2] = useState(false);
-  const [active3, setActive3] = useState(false);
-  const [active4, setActive4] = useState(false);
-  const [active5, setActive5] = useState(false);
   const [fulfilled, setFufilled] = useState([]);
   const [num, setNum] = useState<number>(0);
   const [sort, setSort] = useState<string>("item");
@@ -27,55 +23,13 @@ const All = () => {
   const userInfo = useAppSelector((state) => state.userInfo.true);
   const dispatch = useAppDispatch();
 
-  const func1 = () => {
-    setActive1(true);
-    setActive2(false);
-    setActive3(false);
-    setActive4(false);
-    setActive5(false);
-  };
-
-  const func2 = () => {
-    setActive1(false);
-    setActive2(true);
-    setActive3(false);
-    setActive4(false);
-    setActive5(false);
-  };
-  const func3 = () => {
-    setActive1(false);
-    setActive2(false);
-    setActive3(true);
-    setActive4(false);
-    setActive5(false);
-  };
-  const func4 = () => {
-    setActive1(false);
-    setActive2(false);
-    setActive3(false);
-    setActive4(true);
-    setActive5(false);
-  };
-  const func5 = () => {
-    setActive1(false);
-    setActive2(false);
-    setActive3(false);
-    setActive4(false);
-    setActive5(true);
-  };
-
-  const comp = "computers-peripherals";
-  const elec = "electronics";
-  const fur = "furniture";
-  const hobby = "hobbies";
-
-  const handleOffsetNext = () => {
+  const onHandleOffsetNext = () => {
     setOffest(offset + 1494);
     if (offset >= 2988) {
       setOffest(0);
     }
   };
-  const handleOffsetPrev = () => {
+  const onHandleOffsetPrev = () => {
     setOffest(offset - 1494);
     if (offset <= 0) {
       setOffest(2988);
@@ -85,16 +39,24 @@ const All = () => {
     setNum(num + 1);
   };
 
+  const onCartAdd = (id: string) => {
+    dispatch(fetchCart(id));
+    func();
+  };
+
   useEffect(() => {
     dispatch(fetchUserInfo());
   }, [num]);
+
   useEffect(() => {
     async function fetchData() {
       await Promise.all([
-        dispatch(fetchGoodsComputers_peripherals({ comp, sort })),
-        dispatch(fetchGoodsElectronics({ elec, sort })),
-        dispatch(fetchGoodsFurniture({ fur, sort })),
-        dispatch(fetchGoodsHobbies({ hobby, sort })),
+        dispatch(
+          fetchGoodsComputers_peripherals({ comp: ALlNames.comp, sort })
+        ),
+        dispatch(fetchGoodsElectronics({ elec: ALlNames.elec, sort })),
+        dispatch(fetchGoodsFurniture({ fur: ALlNames.fur, sort })),
+        dispatch(fetchGoodsHobbies({ hobby: ALlNames.hobby, sort })),
       ]).then((values) => {
         setFufilled(values);
       });
@@ -111,48 +73,43 @@ const All = () => {
       <div className={styles.desc}>
         <button
           onClick={() => {
-            func1();
             setSort("raing");
           }}
-          className={active1 ? `${styles.btn} ${styles.active}` : styles.btn}
+          className={styles.btn}
         >
           Все
         </button>
         <button
           onClick={() => {
-            func2();
             setSort("price");
           }}
-          className={active2 ? `${styles.btn} ${styles.active}` : styles.btn}
+          className={styles.btn}
         >
           Товары со скидкой
         </button>
 
         <button
           onClick={() => {
-            func3();
             setSort("rating");
           }}
-          className={active3 ? `${styles.btn} ${styles.active}` : styles.btn}
+          className={styles.btn}
         >
           Товыры с подарками
         </button>
 
         <button
           onClick={() => {
-            func4();
             setSort("price");
           }}
-          className={active4 ? `${styles.btn} ${styles.active}` : styles.btn}
+          className={styles.btn}
         >
           Суперцена
         </button>
         <button
           onClick={() => {
-            func5();
             setSort("availableAmount");
           }}
-          className={active5 ? `${styles.btn} ${styles.active}` : styles.btn}
+          className={styles.btn}
         >
           Уценненые товары
         </button>
@@ -161,7 +118,7 @@ const All = () => {
       <div className={styles.wrapperInner}>
         <button
           className={`${styles.btns} ${styles.margin}`}
-          onClick={() => handleOffsetPrev()}
+          onClick={onHandleOffsetPrev}
         >
           <LeftOutlined />
         </button>
@@ -208,10 +165,7 @@ const All = () => {
                             ? styles.added
                             : styles.btn
                         }
-                        onClick={() => {
-                          dispatch(fetchCart(smt.id));
-                          func(smt.id);
-                        }}
+                        onClick={() => onCartAdd(smt.id)}
                       >
                         В корзину
                       </button>
@@ -225,7 +179,7 @@ const All = () => {
 
         <button
           className={`${styles.btns} ${styles.right}`}
-          onClick={() => handleOffsetNext()}
+          onClick={onHandleOffsetNext}
         >
           <RightOutlined />
         </button>

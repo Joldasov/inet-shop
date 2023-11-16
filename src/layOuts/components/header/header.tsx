@@ -8,6 +8,7 @@ import {
 import type { MenuProps } from "antd";
 import { Dropdown, Space } from "antd";
 import styles from "./headerStyle.module.scss";
+
 const items: MenuProps["items"] = [
   {
     label: (
@@ -102,9 +103,9 @@ const Header = () => {
           <p>Бонусная программа</p>
           <div className={styles.divider}></div>
           <div className={styles.vibers}>
-            <i className="fa-brands fa-viber" style={{ color: "purple" }}></i>
+            <i className={`fa-brands fa-viber ${styles.viberColorPurple}`}></i>
             <span className={styles.viber}>Viber</span>
-            <i className="fa-solid fa-a" style={{ color: "red" }}></i>
+            <i className={`fa-solid fa-a ${styles.viberColorRed}`}></i>
             <span className={styles.A}>+375 29 302 10 21</span>
             <Dropdown
               menu={{ items }}

@@ -19,10 +19,14 @@ const Detail = () => {
   const fulfilled = useAppSelector((state) => state.get.status);
   const userInfo = useAppSelector((state) => state.userInfo.true);
   const [num, setNum] = useState(0);
+
   const onClick = () => {
     setNum(num + 1);
   };
-
+  const onAddCart = (id: string|undefined) => {
+    dispatch(fetchCart(id));
+    onClick();
+  };
   useEffect(() => {
     dispatch(fetchGetItem({ id }));
   }, [name, num]);
@@ -40,7 +44,7 @@ const Detail = () => {
       <div className={styles.details}>
         <div className={styles.box0}>
           <button className={styles.playBtn}>
-            <CaretRightOutlined style={{ color: "white", fontSize: "50px" }} />
+            <CaretRightOutlined className={styles.caretRigth} />
           </button>
           <button className={styles.imgBtn}>
             <img
@@ -54,7 +58,7 @@ const Detail = () => {
         </div>
         <img
           src={fulfilled?.imageUrls?.length > 0 ? fulfilled.imageUrls[0] : ""}
-          style={{ margin: "0px 150px" }}
+          
         />
         <div className={styles.price}>
           <h1>
@@ -79,22 +83,15 @@ const Detail = () => {
           0 ? (
             <NavLink to="/basket">
               <button
-                onClick={() => {
-                  dispatch(fetchCart(id));
-                  onClick();
-                }}
+                onClick={() => onAddCart(id) }
                 className={styles.added}
-                style={{ textDecoration: "underline" }}
               >
                 В корзину
               </button>
             </NavLink>
           ) : (
             <button
-              onClick={() => {
-                dispatch(fetchCart(id));
-                onClick();
-              }}
+              onClick={() => onAddCart(id)}
               className={styles.cart}
             >
               В корзину

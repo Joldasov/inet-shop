@@ -15,55 +15,26 @@ import {
   useAppSelector,
 } from "../../../../utils/helpers/Helpers";
 import styles from "./popularGoods.module.scss";
-
+import { GoodsNames } from "./utils/const/GoodsNames";
 const PopularGoods = () => {
-  const [active1, setActive1] = useState(true);
-  const [active2, setActive2] = useState(false);
-  const [active3, setActive3] = useState(false);
-  const [active4, setActive4] = useState(false);
   const [height, setHeight] = useState<number>(914);
   const [fulfilled, setFufilled] = useState([]);
   const dispatch = useAppDispatch();
   const [sort, setSort] = useState<string>("item");
   const [num, setNum] = useState<number>(0);
+  const userInfo = useAppSelector((state) => state.userInfo.true);
 
-  const func1 = () => {
-    setActive1(true);
-    setActive2(false);
-    setActive3(false);
-    setActive4(false);
-  };
-
-  const func2 = () => {
-    setActive1(false);
-    setActive2(true);
-    setActive3(false);
-    setActive4(false);
-  };
-  const func3 = () => {
-    setActive1(false);
-    setActive2(false);
-    setActive3(true);
-    setActive4(false);
-  };
-  const func4 = () => {
-    setActive1(false);
-    setActive2(false);
-    setActive3(false);
-    setActive4(true);
-  };
-  const comp = "computers-peripherals";
-  const elec = "electronics";
-  const fur = "furniture";
-  const hobby = "hobbies";
-  const app = "appliances";
-
-  const addHeight = () => {
+  const onAddHeigth = () => {
     if (height > 1306) {
       setHeight(1805);
     } else {
       setHeight(height + 416);
     }
+  };
+
+  const onAddCart = (id: string) => {
+    dispatch(fetchCart(id));
+    func();
   };
 
   const func = () => {
@@ -77,21 +48,20 @@ const PopularGoods = () => {
   useEffect(() => {
     async function fetchData() {
       await Promise.all([
-        dispatch(fetchGoodsComputers_peripherals({ comp, sort })),
-        dispatch(fetchGoodsElectronics({ elec, sort })),
-        dispatch(fetchGoodsFurniture({ fur, sort })),
-        dispatch(fetchGoodsHobbies({ hobby, sort })),
-        dispatch(fetchApplience({ app, sort })),
+        dispatch(
+          fetchGoodsComputers_peripherals({ comp: GoodsNames.comp, sort: sort })
+        ),
+        dispatch(fetchGoodsElectronics({ elec: GoodsNames.elec, sort })),
+        dispatch(fetchGoodsFurniture({ fur: GoodsNames.fur, sort })),
+        dispatch(fetchGoodsHobbies({ hobby: GoodsNames.hobby, sort })),
+        dispatch(fetchApplience({ app: GoodsNames.app, sort })),
       ]).then((values) => {
         setFufilled(values);
         dispatch(addArray(values));
       });
     }
-
     fetchData();
   }, [sort, dispatch]);
-
-  const userInfo = useAppSelector((state) => state.userInfo.true);
 
   return (
     <div className={styles.wrapper}>
@@ -100,37 +70,33 @@ const PopularGoods = () => {
       </div>
       <div className={styles.buttons}>
         <button
-          className={active1 ? `${styles.btn} ${styles.active}` : styles.btn}
+          className={styles.btn}
           onClick={() => {
             setSort("item");
-            func1();
           }}
         >
           Все
         </button>
         <button
-          className={active2 ? `${styles.btn} ${styles.active}` : styles.btn}
+          className={styles.btn}
           onClick={() => {
             setSort("price");
-            func2();
           }}
         >
           до 100 р.
         </button>
         <button
-          className={active3 ? `${styles.btn} ${styles.active}` : styles.btn}
+          className={styles.btn}
           onClick={() => {
             setSort("rating");
-            func3();
           }}
         >
           Популярное
         </button>
         <button
-          className={active4 ? `${styles.btn} ${styles.active}` : styles.btn}
+          className={styles.btn}
           onClick={() => {
             setSort("availableAmount");
-            func4();
           }}
         >
           По доступности
@@ -173,10 +139,7 @@ const PopularGoods = () => {
                       ? styles.chosen
                       : styles.btn
                   }
-                  onClick={() => {
-                    dispatch(fetchCart(smt.id));
-                    func();
-                  }}
+                  onClick={() => onAddCart(item.id)}
                 >
                   В корзину
                 </button>
@@ -188,7 +151,7 @@ const PopularGoods = () => {
       <div className={styles.show}>
         <button
           className={height > 1400 ? styles.hide : ""}
-          onClick={() => addHeight()}
+          onClick={onAddHeigth}
         >
           Показать еще
         </button>

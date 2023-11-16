@@ -32,10 +32,10 @@ const PhoneNumbers = [
 const Footer = () => {
   return (
     <div className={styles.wrapper}>
-      {PhoneNumbers.map((smt) => (
+      {PhoneNumbers.map((phoneNumber) => (
         <div className={styles.box}>
-          <img src={smt.logo} />
-          <p>{smt.number}</p>
+          <img src={phoneNumber.logo} />
+          <p>{phoneNumber.number}</p>
         </div>
       ))}
     </div>

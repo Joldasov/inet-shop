@@ -27,11 +27,6 @@ const Cart = () => {
   const dispatch = useAppDispatch();
   const fulfilled = useAppSelector((state) => state.userInfo.true);
   const data = useAppSelector((state) => state.cart.data);
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [timeToDeliver, setTimeToDeliver] = useState("");
-  const [comment, setComment] = useState("");
-  const [phone, setPhone] = useState("");
   const [open, setOpen] = useState(false);
   const items = useAppSelector((state) => state.cart.items);
 
@@ -52,26 +47,23 @@ const Cart = () => {
 
   const onClose = () => {
     setOpen(false);
-    setName("");
-    setAddress("");
-    setComment("");
-    setPhone("");
   };
 
-  const onFinish = (values) => {
-    setName(values.name);
-    setAddress(values.address);
-    setComment(values.comment);
-    setPhone(values.phone);
-    setTimeToDeliver(values.timeToDeliver);
+  const onFinish = (values: {
+    name: string;
+    address: string;
+    timeToDeliver: string;
+    phone: "s";
+    comment: string;
+  }) => {
     dispatch(
       fetchBuy({
         items,
-        name,
-        address,
-        phone,
-        timeToDeliver,
-        comment,
+        name: values.name,
+        address: values.address,
+        phone: values.phone,
+        timeToDeliver: values.timeToDeliver,
+        comment: values.comment,
       })
     );
   };
@@ -79,6 +71,19 @@ const Cart = () => {
   const SubmitOrder = () => {
     onClose();
   };
+
+  const onIncrement = (id: string) =>{
+    dispatch(Increament(id));
+  }
+  const onDiscrement = (id: string) =>{
+    dispatch(Discreament(id));
+  }
+  const onFetchCartDelete = (id: string) =>{
+    dispatch(fetchCartDelete(id))
+  }
+  const onFavorites = (id: string) =>{
+    dispatch(fetchInFavor(id));
+  }
 
   useEffect(() => {
     const newSet = new Set(fulfilled.data?.cart);
@@ -134,7 +139,7 @@ const Cart = () => {
                               ? styles.btn
                               : `${styles.btn} ${styles.active}`
                           }
-                          onClick={() => dispatch(Discreament(item.id))}
+                          onClick={() => onDiscrement(item.id)}
                           disabled={item.amount > 1 ? false : true}
                         >
                           <MinusOutlined
@@ -144,9 +149,7 @@ const Cart = () => {
                         <p>{item?.amount}</p>
                         <button
                           className={styles.btn}
-                          onClick={() => {
-                            dispatch(Increament(item.id));
-                          }}
+                          onClick={() => onIncrement(item.id)}
                         >
                           <PlusOutlined className={styles.plusIcon} />
                         </button>
@@ -167,7 +170,7 @@ const Cart = () => {
                     <div className={styles.AddDelete}>
                       <button
                         className={styles.delete}
-                        onClick={() => dispatch(fetchCartDelete(item.id))}
+                        onClick={() => onFetchCartDelete(item.id)}
                       >
                         <DeleteOutlined className={styles.deleteIcon} />
                         Удалить
@@ -175,7 +178,7 @@ const Cart = () => {
 
                       <button
                         className={item?.isFavorite ? styles.favor : styles.add}
-                        onClick={() => dispatch(fetchInFavor(item.id))}
+                        onClick={() => onFavorites(item.id)}
                       >
                         <HeartOutlined
                           className={item?.isFavorite ? styles.favorIcon : ""}
@@ -248,8 +251,8 @@ const Cart = () => {
             labelWrap
             wrapperCol={{ flex: 1 }}
             colon={false}
-            style={{ maxWidth: 900, marginLeft: "20px", maxHeight: "600px" }}
             onFinish={onFinish}
+            className={styles.form}
           >
             <div className={styles.someText}>
               <h1>Oформление заказа</h1>
@@ -291,11 +294,7 @@ const Cart = () => {
 
             <Form.Item
               label=" "
-              style={{
-                textAlign: "center",
-                marginTop: "50px",
-                display: "flex",
-              }}
+              className={styles.formItem}
             >
               <div className={styles.modalOrder}>
                 <p>

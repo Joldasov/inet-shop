@@ -27,6 +27,8 @@ import {
 import { fetchSearch } from "../../../store/thunk/SearchThunk";
 import { useAppDispatch, useAppSelector } from "../../../utils/helpers/Helpers";
 import styles from "./postStyle.module.scss";
+import { Goods } from "./utils/const/Goods";
+
 const PostHeader = () => {
   const [modalActive, setModalActive] = useState<boolean>(false);
   const [modalSearchActive, setModalSearchActive] = useState<boolean>(false);
@@ -34,7 +36,9 @@ const PostHeader = () => {
   const text = useAppSelector((state) => state.search.text);
   const fulfilled = useAppSelector((state) => state.search.status);
   const isLoading = useAppSelector((state) => state.search.isLoading);
-
+  const recent = useAppSelector((state) => state.search.recent);
+  const smt = useAppSelector((state) => state.search.smt);
+  
   const items: MenuProps["items"] = [
     {
       label: <UserOutlined className={styles.userIcon} />,
@@ -95,31 +99,41 @@ const PostHeader = () => {
       key: "5",
     },
   ];
-  const Goods = [
-    {
-      good: "Зимние шины",
-    },
-    {
-      good: "Телевизоры",
-    },
-    {
-      good: "Комоды, тумбы",
-    },
-    {
-      good: "Диваны",
-    },
-    {
-      good: "Пылесосы вертикальные",
-    },
-    {
-      good: "Матрасы",
-    },
-    {
-      good: "Смаптфоны iPhone",
-    },
-  ];
-  const recent = useAppSelector((state) => state.search.recent);
-  const smt = useAppSelector((state) => state.search.smt);
+  const onChangeDisplayFalse = () => {
+    dispatch(changeDisplayFalse());
+  };
+  const onChangeDisplayTrue = () => {
+    dispatch(changeDisplayTrue());
+  };
+  const onSetModalSearchActive = () => {
+    setModalSearchActive(true);
+  };
+  const onSearch = (e: string) => {
+    dispatch(addSearch(e));
+    dispatch(fetchSearch({ text }));
+  };
+  const onPreventDefault = (e) => {
+    e.preventDefault();
+  };
+  const onModalSearchActive = () => {
+    setModalSearchActive(false);
+  };
+  const onStopPropaganation = (e) => {
+    e.stopPropagation();
+  };
+  const onReset = () => {
+    dispatch(reset());
+  };
+  const onAddRecent = (e) => {
+    dispatch(addRecent(e));
+  };
+  const onOffSearch = () => {
+    dispatch(addRecent(items.name));
+    setModalSearchActive(false);
+    dispatch(textClear());
+    dispatch(changeDisplayFalse());
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.postWrapper}>
@@ -127,8 +141,8 @@ const PostHeader = () => {
           <div>
             <NavLink
               to="/"
-              style={{ textDecoration: "none" }}
-              onClick={() => dispatch(changeDisplayFalse())}
+              className={styles.noTextDecoration}
+              onClick={onChangeDisplayFalse}
             >
               <h1 className={styles.logo}>21Vek.log</h1>
             </NavLink>
@@ -138,7 +152,7 @@ const PostHeader = () => {
             <NavLink
               to="/catalogs"
               className={styles.noTextDecoration}
-              onClick={() => dispatch(changeDisplayTrue())}
+              onClick={onChangeDisplayTrue}
             >
               <p className={styles.cotolog_text}>Католог товаров</p>
             </NavLink>
@@ -155,17 +169,14 @@ const PostHeader = () => {
                   <MonitorOutlined className={styles.monitorIcon} />
                 )
               }
-              onFocus={() => setModalSearchActive(true)}
-              onChange={(e) => {
-                dispatch(addSearch(e.target.value));
-                dispatch(fetchSearch({ text }));
-              }}
+              onFocus={onSetModalSearchActive}
+              onChange={(e) => onSearch(e.target.value)}
               value={text}
             />
           </div>
           <div className={styles.logIN}>
             <Dropdown menu={{ items }} trigger={["click"]}>
-              <a onClick={(e) => e.preventDefault()}>
+              <a onClick={(e) => onPreventDefault(e)}>
                 <Space>
                   <LoginOutlined />
                   <p>Аккаунт</p>
@@ -175,10 +186,7 @@ const PostHeader = () => {
             </Dropdown>
           </div>
           <div>
-            <NavLink
-              to="/basket"
-              onClick={() => dispatch(changeDisplayFalse())}
-            >
+            <NavLink to="/basket" onClick={onChangeDisplayFalse}>
               <button className={styles.basket}>
                 <ShoppingCartOutlined className={styles.shopIcon} /> Корзинка
               </button>
@@ -190,9 +198,12 @@ const PostHeader = () => {
           className={
             modalSearchActive ? `${styles.searchWrapper}` : styles.searchActive
           }
-          onClick={() => setModalSearchActive(false)}
+          onClick={onModalSearchActive}
         >
-          <div className={styles.search} onClick={(e) => e.stopPropagation()}>
+          <div
+            className={styles.search}
+            onClick={(e) => onStopPropaganation(e)}
+          >
             <div className={styles.searchInner}>
               {text.length > 0 && fulfilled.length === 0 ? (
                 <div className={styles.nothingFound}>
@@ -206,15 +217,12 @@ const PostHeader = () => {
                       <div className={`${styles.suggestion} ${styles.last}`}>
                         <p className={`${styles.well_known_word}`}>
                           Последние запросы
-                          <p
-                            className={styles.active}
-                            onClick={() => dispatch(reset())}
-                          >
+                          <p className={styles.active} onClick={onReset}>
                             Очистить
                           </p>
                         </p>
                         <div className={styles.suggestion_box}>
-                          <p onClick={() => dispatch(addRecent(recent[0]))}>
+                          <p onClick={() => onAddRecent(recent[0])}>
                             <ClockCircleOutlined className={styles.clockIcon} />
 
                             {recent[0]}
@@ -227,7 +235,7 @@ const PostHeader = () => {
                             className={`${styles.well_known_word} ${styles.recent}`}
                           ></p>
                           <div className={styles.suggestion_box}>
-                            <p onClick={() => dispatch(addRecent(smt))}>
+                            <p onClick={() => onAddRecent(smt)}>
                               <ClockCircleOutlined
                                 className={styles.clockIcon}
                               />
@@ -243,14 +251,14 @@ const PostHeader = () => {
                   <div className={styles.suggestion}>
                     <p className={styles.well_known_word}>Популярное</p>
                     <div className={styles.suggestion_box}>
-                      <p onClick={() => dispatch(addRecent("Шкафы"))}>Шкафы</p>
+                      <p onClick={() => onAddRecent("Шкафы")}>Шкафы</p>
                     </div>
                   </div>
                   {Goods.map((item) => (
                     <div className={styles.suggestion}>
                       <p className={styles.well_known_word}></p>
                       <div className={styles.suggestion_box}>
-                        <p onClick={() => dispatch(addRecent(item.good))}>
+                        <p onClick={() => onAddRecent(item.good)}>
                           {item.good}
                         </p>
                       </div>
@@ -266,16 +274,7 @@ const PostHeader = () => {
                         to={`/detail/:${items.id}`}
                         className={styles.noTextDecoration}
                       >
-                        <p
-                          onClick={() => {
-                            dispatch(addRecent(items.name));
-                            setModalSearchActive(false);
-                            dispatch(textClear());
-                            dispatch(changeDisplayFalse());
-                          }}
-                        >
-                          {items?.name}
-                        </p>
+                        <p onClick={onOffSearch}>{items?.name}</p>
                       </NavLink>
                     </div>
                   </div>
