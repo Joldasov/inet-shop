@@ -195,6 +195,9 @@
   font-size: 18px;
   font-weight: 500;
   margin-top: 10px;
+  .textInner{
+    margin-left: 5px;
+  }
 }
 .divider {
   background-color: white;
@@ -246,4 +249,11 @@
 .clockIcon {
   color: gray;
   margin-right: 7px;
+}
+p {
+  font-size: 16px;
+  .bold {
+    font-weight: 600;
+    font-size: 16px;
+  }
 }

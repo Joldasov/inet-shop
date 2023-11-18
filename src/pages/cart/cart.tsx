@@ -29,10 +29,10 @@ const Cart = () => {
   const data = useAppSelector((state) => state.cart.data);
   const [open, setOpen] = useState(false);
   const items = useAppSelector((state) => state.cart.items);
-
-  useEffect(() => {
-    dispatch(fetchUserInfo());
-  }, [dispatch]);
+  const {status, error} = useAppSelector((state) => state.buy);
+  
+  console.log(status);
+  console.log(error)
 
   let AllAmount = 0;
   let AllPrice = 0;
@@ -55,7 +55,8 @@ const Cart = () => {
     timeToDeliver: string;
     phone: "s";
     comment: string;
-  }) => {
+  }) =>
+   {
     dispatch(
       fetchBuy({
         items,
@@ -66,24 +67,23 @@ const Cart = () => {
         comment: values.comment,
       })
     );
+    onClose()
   };
 
-  const SubmitOrder = () => {
-    onClose();
-  };
+  
 
-  const onIncrement = (id: string) =>{
+  const onIncrement = (id: string) => {
     dispatch(Increament(id));
-  }
-  const onDiscrement = (id: string) =>{
+  };
+  const onDiscrement = (id: string) => {
     dispatch(Discreament(id));
-  }
-  const onFetchCartDelete = (id: string) =>{
-    dispatch(fetchCartDelete(id))
-  }
-  const onFavorites = (id: string) =>{
+  };
+  const onFetchCartDelete = (id: string) => {
+    dispatch(fetchCartDelete(id));
+  };
+  const onFavorites = (id: string) => {
     dispatch(fetchInFavor(id));
-  }
+  };
 
   useEffect(() => {
     const newSet = new Set(fulfilled.data?.cart);
@@ -111,11 +111,14 @@ const Cart = () => {
     dispatch(Items(data));
   }, [AllAmount]);
 
+  useEffect(() => {
+    dispatch(fetchUserInfo());
+  }, [dispatch, status]);
   return (
     <div className={styles.box}>
       <h1>Kорзина</h1>
       <div className={styles.divider}></div>
-      {fulfilled.data?.cart.length > 0 ? (
+      { fulfilled.data?.cart.length > 0  ? (
         <div className={styles.good}>
           <div>
             {data.map((item) =>
@@ -261,14 +264,14 @@ const Cart = () => {
                 <br /> как новый клиент
               </p>
             </div>
-            <Form.Item label="name" name="name" rules={[{ required: false }]}>
+            <Form.Item label="name" name="name" rules={[{ required: true }]}>
               <Input />
             </Form.Item>
 
             <Form.Item
               label="address"
               name="address"
-              rules={[{ required: false }]}
+              rules={[{ required: true }]}
             >
               <Input />
             </Form.Item>
@@ -276,26 +279,23 @@ const Cart = () => {
             <Form.Item
               label="timeToDeliver"
               name="timeToDeliver"
-              rules={[{ required: false }]}
+              rules={[{ required: true }]}
             >
               <Input />
             </Form.Item>
-            <Form.Item label="phone" name="phone" rules={[{ required: false }]}>
+            <Form.Item label="phone" name="phone" rules={[{ required: true }]}>
               <Input />
             </Form.Item>
 
             <Form.Item
               label="comment"
               name="comment"
-              rules={[{ required: false }]}
+              rules={[{ required: true }]}
             >
               <Input />
             </Form.Item>
 
-            <Form.Item
-              label=" "
-              className={styles.formItem}
-            >
+            <Form.Item label=" " className={styles.formItem}>
               <div className={styles.modalOrder}>
                 <p>
                   {AllPrice} р.
@@ -306,7 +306,6 @@ const Cart = () => {
                   type="primary"
                   htmlType="submit"
                   className={styles.submitBtn}
-                  onClick={() => SubmitOrder()}
                 >
                   Submit
                 </Button>

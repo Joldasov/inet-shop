@@ -2,18 +2,16 @@ import {
   AppstoreOutlined,
   CaretDownOutlined,
   ClockCircleOutlined,
-  EyeOutlined,
   HeartOutlined,
   LoadingOutlined,
   LoginOutlined,
   MonitorOutlined,
-  QuestionOutlined,
   ShoppingCartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Dropdown, Input, Space } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Accaunt from "../../../pages/modalWindows/accaunt/Accaunt";
 import {
@@ -25,6 +23,7 @@ import {
   textClear,
 } from "../../../store/slice/Search";
 import { fetchSearch } from "../../../store/thunk/SearchThunk";
+import { fetchUserInfo } from "../../../store/thunk/UserInfoThunk";
 import { useAppDispatch, useAppSelector } from "../../../utils/helpers/Helpers";
 import styles from "./postStyle.module.scss";
 import { Goods } from "./utils/const/Goods";
@@ -33,12 +32,16 @@ const PostHeader = () => {
   const [modalActive, setModalActive] = useState<boolean>(false);
   const [modalSearchActive, setModalSearchActive] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const text = useAppSelector((state) => state.search.text);
+  const { text, isLoading, recent, smt } = useAppSelector(
+    (state) => state.search
+  );
   const fulfilled = useAppSelector((state) => state.search.status);
-  const isLoading = useAppSelector((state) => state.search.isLoading);
-  const recent = useAppSelector((state) => state.search.recent);
-  const smt = useAppSelector((state) => state.search.smt);
-  
+  const userInfo = useAppSelector((state) => state.userInfo.true);
+  useEffect(() => {
+    dispatch(fetchUserInfo());
+  }, [dispatch, modalActive]);
+  console.log(userInfo);
+
   const items: MenuProps["items"] = [
     {
       label: <UserOutlined className={styles.userIcon} />,
@@ -46,7 +49,17 @@ const PostHeader = () => {
       type: "group",
     },
     {
-      label: (
+      label: userInfo.data?.name ? (
+        <div>
+          <p>
+            name: <span className={styles.bold}>{userInfo.data?.name}</span>
+          </p>
+          <p>
+            surname:{" "}
+            <span className={styles.bold}>{userInfo.data?.surname}</span>
+          </p>
+        </div>
+      ) : (
         <div className={styles.smt}>
           <button
             onClick={() => setModalActive(true)}
@@ -82,19 +95,12 @@ const PostHeader = () => {
     },
     {
       label: (
-        <p className={styles.text}>
-          <EyeOutlined className={styles.margin} />
-          Просмотренные
-        </p>
-      ),
-      key: "4",
-    },
-    {
-      label: (
-        <p className={styles.text}>
-          <i className="fa-solid fa-code-compare"></i>
-          Списки Сравнения
-        </p>
+        <NavLink to='/listOfShoppings'>
+          <p className={styles.text}>
+            <i className="fa-solid fa-code-compare"></i>
+            <span className={styles.textInner}>Список покупок</span>
+          </p>
+        </NavLink>
       ),
       key: "5",
     },
@@ -133,6 +139,8 @@ const PostHeader = () => {
     dispatch(textClear());
     dispatch(changeDisplayFalse());
   };
+
+  console.log(fulfilled);
 
   return (
     <div className={styles.wrapper}>
@@ -207,7 +215,6 @@ const PostHeader = () => {
             <div className={styles.searchInner}>
               {text.length > 0 && fulfilled.length === 0 ? (
                 <div className={styles.nothingFound}>
-                  <QuestionOutlined className={styles.questionIcon} />
                   <p>Ничего не найдено</p>
                 </div>
               ) : text.length === 0 ? (
@@ -268,7 +275,9 @@ const PostHeader = () => {
               ) : (
                 fulfilled?.map((items) => (
                   <div className={styles.suggestion}>
-                    <p className={styles.well_known_word}></p>
+                    <p className={styles.well_known_word}>
+                      <img src={items.imageUrls[0]} width={50} height={50} />
+                    </p>
                     <div className={styles.suggestion_box}>
                       <NavLink
                         to={`/detail/:${items.id}`}

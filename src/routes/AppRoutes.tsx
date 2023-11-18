@@ -5,6 +5,7 @@ import Catalog from "../pages/catalog/Catalog";
 import Detail from "../pages/details/Details";
 import Main from "../pages/main/Main";
 import SubCategoryItems from "../pages/subCategory/CategorySub";
+import ListOfShoppings from "../pages/listsOfShopping/ListOfShopping";
 const AppRoute = () => {
   return (
     <Routes>
@@ -14,6 +15,7 @@ const AppRoute = () => {
         <Route path="/detail/:name" element={<Detail />} />
         <Route path="/catalogs" element={<Catalog />} />
         <Route path="/subCategory" element={<SubCategoryItems />} />
+        <Route path="/listOfShoppings" element = {<ListOfShoppings/>}/>
       </Route>
     </Routes>
   );

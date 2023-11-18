@@ -4,6 +4,7 @@ import { fetchCart } from "../../store/thunk/AddCartThunk";
 import { fetchUserInfo } from "../../store/thunk/UserInfoThunk";
 import { useAppDispatch, useAppSelector } from "../../utils/helpers/Helpers";
 import styles from "./categorySub.module.scss";
+import Item from "antd/es/list/Item";
 const SubCategoryItems = () => {
   const goods = useAppSelector((state) => state.subItem.status);
   const dispatch = useAppDispatch();
@@ -13,8 +14,8 @@ const SubCategoryItems = () => {
     setNum(num + 1);
   };
 
-  const onAddCart = () => {
-    dispatch(fetchCart(smt.id));
+  const onAddCart = (id: string) => {
+    dispatch(fetchCart(id));
     func();
   };
   useEffect(() => {
@@ -63,7 +64,7 @@ const SubCategoryItems = () => {
                     ? styles.chosen
                     : styles.btn
                 }
-                onClick={onAddCart}
+                onClick={() => onAddCart(smt.id)}
               >
                 В корзину
               </button>
