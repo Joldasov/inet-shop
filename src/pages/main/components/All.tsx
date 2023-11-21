@@ -40,7 +40,7 @@ const All = () => {
   };
 
   const onCartAdd = (id: string) => {
-    dispatch(fetchCart(id));
+    dispatch(fetchCart({id: id}));
     func();
   };
 

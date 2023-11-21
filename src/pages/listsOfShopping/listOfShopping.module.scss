@@ -4,15 +4,16 @@
   .box {
     display: grid;
     justify-content: space-between;
-    grid-template-columns: 1fr 1fr 1fr 1fr ;
+    grid-template-columns: 1fr 1fr 1fr;
     .details {
       display: flex;
       margin-top: 25px;
+      justify-content: space-between;
       margin-right: 10px;
       padding: 7px;
       border: 1px solid gray;
       border-radius: 5px;
-        width: 350px;
+      width: 450px;
       .Dropdown {
         height: 1px;
         margin-left: 5px;
@@ -25,6 +26,15 @@
           }
         }
       }
+      .buttons {
+        margin-left: 10px;
+        display: flex;
+        text-align: bottom;
+      }
+      
     }
   }
+}
+.btn{
+  margin-top: 10px;
 }

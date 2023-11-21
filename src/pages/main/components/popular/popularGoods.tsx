@@ -33,7 +33,7 @@ const PopularGoods = () => {
   };
 
   const onAddCart = (id: string) => {
-    dispatch(fetchCart(id));
+    dispatch(fetchCart({ id: id }));
     func();
   };
 
@@ -49,7 +49,7 @@ const PopularGoods = () => {
     async function fetchData() {
       await Promise.all([
         dispatch(
-          fetchGoodsComputers_peripherals({ comp: GoodsNames.comp, sort: sort })
+          fetchGoodsComputers_peripherals({ comp: GoodsNames.comp, sort })
         ),
         dispatch(fetchGoodsElectronics({ elec: GoodsNames.elec, sort })),
         dispatch(fetchGoodsFurniture({ fur: GoodsNames.fur, sort })),
@@ -139,7 +139,7 @@ const PopularGoods = () => {
                       ? styles.chosen
                       : styles.btn
                   }
-                  onClick={() => onAddCart(item.id)}
+                  onClick={() => onAddCart(smt.id)}
                 >
                   В корзину
                 </button>

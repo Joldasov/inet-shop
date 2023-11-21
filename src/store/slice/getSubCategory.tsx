@@ -17,7 +17,16 @@ const initialState: getSubItemState = {
 export const GetSubItem = createSlice({
   name: sliceNames.USER_GETSUBITEM,
   initialState,
-  reducers: {},
+  reducers: {
+    setSortRating: (state) =>{
+      const sort = state.status?.data?.sort((a: any,b: any) => +b.rating - +a.rating)
+      state.status = sort
+    },
+    setSortLowPrice: (state) =>{
+      const sort = state.status?.data?.sort((a: any,b: any) => +b.price - +a.price)
+      state.status = sort
+    }
+  },
   extraReducers: {
     [fetchGetSubItems.pending.type]: (state) => {
       state.isLoading = true;
@@ -34,6 +43,6 @@ export const GetSubItem = createSlice({
   },
 });
 
-export const {} = GetSubItem.actions;
+export const {setSortRating, setSortLowPrice} = GetSubItem.actions;
 
 export default GetSubItem.reducer;

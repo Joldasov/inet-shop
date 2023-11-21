@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { $api } from "../../services/Service";
 import { thunkNames } from "../../utils/const/ThunkNames";
 interface IText {
-  id: string | undefined;
+  id: string ;
 }
 export const fetchGetItem = createAsyncThunk(
   thunkNames.USER_GETITEMS,

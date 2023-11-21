@@ -11,7 +11,6 @@ const Catalog = () => {
   const categories = useAppSelector((state) => state.catalog.status);
   const [num, setNum] = useState<number>(0);
   const [category, setCategory] = useState("appliances");
-
   const categoryHandle = (name: string) => {
     if (name === "Appliances") {
       setNum(0);
@@ -31,13 +30,12 @@ const Catalog = () => {
   };
 
   const onNavLinkClick = (category: string, id: string) => {
-    dispatch(fetchGetSubItems({ category, id }));
+    dispatch(fetchGetSubItems({ category, id}));
     dispatch(changeDisplayFalse());
   };
   useEffect(() => {
     dispatch(fetchCatalog());
   }, []);
-  console.log(categories);
   return (
     <div className={styles.wrapper}>
       <div className={styles.categories}>

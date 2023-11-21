@@ -13,5 +13,7 @@ export enum thunkNames {
     AUTH_REGISTER = 'Auth/Register',
     USER_SEARCH = "User/Search",
     GET_SUBCATEGORY = "Get/subCategory",
-    AUTH_USERINFO = "Auth/UserInfo"
+    AUTH_USERINFO = "Auth/UserInfo",
+    DELETE_ORDER = "Auth/Delete",
+    CHANGE_ORDER = 'Auth/Change'
 }

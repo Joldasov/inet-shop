@@ -44,13 +44,19 @@ const PostHeader = () => {
 
   const items: MenuProps["items"] = [
     {
-      label: <UserOutlined className={styles.userIcon} />,
+      label: userInfo.data?.name ? (
+        <div className={styles.accauntText}>
+          <h1>Аккаунт</h1>
+        </div>
+      ) : (
+        <UserOutlined className={styles.userIcon} />
+      ),
       key: "0",
       type: "group",
     },
     {
       label: userInfo.data?.name ? (
-        <div>
+        <div className={styles.name}>
           <p>
             name: <span className={styles.bold}>{userInfo.data?.name}</span>
           </p>
@@ -95,7 +101,7 @@ const PostHeader = () => {
     },
     {
       label: (
-        <NavLink to='/listOfShoppings'>
+        <NavLink to="/listOfShoppings">
           <p className={styles.text}>
             <i className="fa-solid fa-code-compare"></i>
             <span className={styles.textInner}>Список покупок</span>

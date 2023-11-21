@@ -9,6 +9,8 @@ import loginReducer from "./slice/Login";
 import registerReducer from "./slice/Register";
 import SearchReducer from "./slice/Search";
 import UserInfoReducer from "./slice/UserInfo";
+import DeleteOrder from "./slice/DeleteOrder";
+import OrderChange from "./slice/OrderChange";
 export const store = configureStore({
   reducer: {
     login: loginReducer,
@@ -21,6 +23,8 @@ export const store = configureStore({
     catalog: CatalogReducer,
     subItem: GetSubItemReducer,
     buy: BuyStore,
+    deleteOrder: DeleteOrder,
+    orderChange: OrderChange
   },
 });
 

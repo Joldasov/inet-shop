@@ -23,8 +23,8 @@ const Detail = () => {
   const onClick = () => {
     setNum(num + 1);
   };
-  const onAddCart = (id: string|undefined) => {
-    dispatch(fetchCart(id));
+  const onAddCart = (id: string) => {
+    dispatch(fetchCart({id}));
     onClick();
   };
   useEffect(() => {
