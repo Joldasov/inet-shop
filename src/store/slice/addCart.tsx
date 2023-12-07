@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCart } from "../thunk/AddCartThunk";
-import { sliceNames } from "../../utils/const/SliceNames";
 interface cartState {
   isLoading: boolean;
   error: string;
@@ -48,7 +46,7 @@ const initialState: cartState = {
 };
 
 export const Cart = createSlice({
-  name: sliceNames.USER_CART,
+  name: 'cart',
   initialState,
   reducers: {
     DataAdd: (state, action) => {
@@ -124,8 +122,8 @@ export const Cart = createSlice({
         }
       );
     },
-    Items: (state, action: { payload: any; type: string }) => {
-      state.items = action.payload.map(
+    Items: (state, action) => {
+      state.items = action.payload?.map(
         (item: { id: string; amount: number }) => {
           return {
             id: item.id,
@@ -133,20 +131,6 @@ export const Cart = createSlice({
           };
         }
       );
-    },
-  },
-  extraReducers: {
-    [fetchCart.pending.type]: (state) => {
-      state.isLoading = true;
-    },
-    [fetchCart.fulfilled.type]: (state, action) => {
-      state.error = "";
-      state.isLoading = false;
-      state.status = action.payload;
-    },
-    [fetchCart.rejected.type]: (state, action) => {
-      state.error = action.payload;
-      state.isLoading = false;
     },
   },
 });

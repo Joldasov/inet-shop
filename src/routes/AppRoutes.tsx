@@ -14,7 +14,7 @@ const AppRoute = () => {
         <Route path="/basket" element={<Cart />} />
         <Route path="/detail/:name" element={<Detail />} />
         <Route path="/catalogs" element={<Catalog />} />
-        <Route path="/subCategory" element={<SubCategoryItems />} />
+        <Route path="/subCategory/:category/:id" element={<SubCategoryItems />} />
         <Route path="/listOfShoppings" element = {<ListOfShoppings/>}/>
       </Route>
     </Routes>

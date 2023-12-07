@@ -11,9 +11,13 @@ import {
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Dropdown, Input, Space } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Accaunt from "../../../pages/modalWindows/accaunt/Accaunt";
+import {
+  useFetchGetUserInfo,
+  useSearch,
+} from "../../../pages/services/queries";
 import {
   addRecent,
   addSearch,
@@ -22,8 +26,6 @@ import {
   reset,
   textClear,
 } from "../../../store/slice/Search";
-import { fetchSearch } from "../../../store/thunk/SearchThunk";
-import { fetchUserInfo } from "../../../store/thunk/UserInfoThunk";
 import { useAppDispatch, useAppSelector } from "../../../utils/helpers/Helpers";
 import styles from "./postStyle.module.scss";
 import { Goods } from "./utils/const/Goods";
@@ -32,19 +34,51 @@ const PostHeader = () => {
   const [modalActive, setModalActive] = useState<boolean>(false);
   const [modalSearchActive, setModalSearchActive] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const { text, isLoading, recent, smt } = useAppSelector(
-    (state) => state.search
-  );
-  const fulfilled = useAppSelector((state) => state.search.status);
-  const userInfo = useAppSelector((state) => state.userInfo.true);
-  useEffect(() => {
-    dispatch(fetchUserInfo());
-  }, [dispatch, modalActive]);
-  console.log(userInfo);
+  const { text, recent, visibility } = useAppSelector((state) => state.search);
+  const { data, refetch } = useFetchGetUserInfo();
+  const search = useSearch({ text });
+
+  const onModalActive = () => {
+    setModalActive(true);
+    refetch();
+  };
+  const onChangeDisplayFalse = () => {
+    dispatch(changeDisplayFalse());
+  };
+  const onChangeDisplayTrue = () => {
+    dispatch(changeDisplayTrue());
+  };
+  const onSetModalSearchActive = () => {
+    setModalSearchActive(true);
+  };
+  const onSearch = (e: string) => {
+    dispatch(addSearch(e));
+  };
+  const onPreventDefault = (e) => {
+    e.preventDefault();
+  };
+  const onModalSearchActive = () => {
+    setModalSearchActive(false);
+  };
+  const onStopPropaganation = (e) => {
+    e.stopPropagation();
+  };
+  const onReset = () => {
+    dispatch(reset());
+  };
+  const onAddRecent = (text: string) => {
+    dispatch(addRecent(text));
+  };
+  const onOffSearch = (text: string) => {
+    dispatch(addRecent(text));
+    setModalSearchActive(false);
+    dispatch(textClear());
+    dispatch(changeDisplayFalse());
+  };
 
   const items: MenuProps["items"] = [
     {
-      label: userInfo.data?.name ? (
+      label: data?.data ? (
         <div className={styles.accauntText}>
           <h1>Аккаунт</h1>
         </div>
@@ -55,22 +89,18 @@ const PostHeader = () => {
       type: "group",
     },
     {
-      label: userInfo.data?.name ? (
+      label: data?.data.name ? (
         <div className={styles.name}>
           <p>
-            name: <span className={styles.bold}>{userInfo.data?.name}</span>
+            name: <span className={styles.bold}>{data.data?.name}</span>
           </p>
           <p>
-            surname:{" "}
-            <span className={styles.bold}>{userInfo.data?.surname}</span>
+            surname: <span className={styles.bold}>{data.data?.surname}</span>
           </p>
         </div>
       ) : (
         <div className={styles.smt}>
-          <button
-            onClick={() => setModalActive(true)}
-            className={styles.loginBtn}
-          >
+          <button onClick={onModalActive} className={styles.loginBtn}>
             Войти
           </button>
         </div>
@@ -92,15 +122,6 @@ const PostHeader = () => {
     },
     {
       label: (
-        <p className={styles.text}>
-          <HeartOutlined className={styles.margin} />
-          Избранные товары
-        </p>
-      ),
-      key: "3",
-    },
-    {
-      label: (
         <NavLink to="/listOfShoppings">
           <p className={styles.text}>
             <i className="fa-solid fa-code-compare"></i>
@@ -108,45 +129,9 @@ const PostHeader = () => {
           </p>
         </NavLink>
       ),
-      key: "5",
+      key: "3",
     },
   ];
-  const onChangeDisplayFalse = () => {
-    dispatch(changeDisplayFalse());
-  };
-  const onChangeDisplayTrue = () => {
-    dispatch(changeDisplayTrue());
-  };
-  const onSetModalSearchActive = () => {
-    setModalSearchActive(true);
-  };
-  const onSearch = (e: string) => {
-    dispatch(addSearch(e));
-    dispatch(fetchSearch({ text }));
-  };
-  const onPreventDefault = (e) => {
-    e.preventDefault();
-  };
-  const onModalSearchActive = () => {
-    setModalSearchActive(false);
-  };
-  const onStopPropaganation = (e) => {
-    e.stopPropagation();
-  };
-  const onReset = () => {
-    dispatch(reset());
-  };
-  const onAddRecent = (e) => {
-    dispatch(addRecent(e));
-  };
-  const onOffSearch = () => {
-    dispatch(addRecent(items.name));
-    setModalSearchActive(false);
-    dispatch(textClear());
-    dispatch(changeDisplayFalse());
-  };
-
-  console.log(fulfilled);
 
   return (
     <div className={styles.wrapper}>
@@ -177,7 +162,7 @@ const PostHeader = () => {
               allowClear
               className={styles.input}
               prefix={
-                isLoading ? (
+                search.isLoading ? (
                   <LoadingOutlined className={styles.loadingIcon} />
                 ) : (
                   <MonitorOutlined className={styles.monitorIcon} />
@@ -219,7 +204,7 @@ const PostHeader = () => {
             onClick={(e) => onStopPropaganation(e)}
           >
             <div className={styles.searchInner}>
-              {text.length > 0 && fulfilled.length === 0 ? (
+              {text.length > 0 && search.data?.length === 0 ? (
                 <div className={styles.nothingFound}>
                   <p>Ничего не найдено</p>
                 </div>
@@ -237,7 +222,6 @@ const PostHeader = () => {
                         <div className={styles.suggestion_box}>
                           <p onClick={() => onAddRecent(recent[0])}>
                             <ClockCircleOutlined className={styles.clockIcon} />
-
                             {recent[0]}
                           </p>
                         </div>
@@ -248,12 +232,9 @@ const PostHeader = () => {
                             className={`${styles.well_known_word} ${styles.recent}`}
                           ></p>
                           <div className={styles.suggestion_box}>
-                            <p onClick={() => onAddRecent(smt)}>
-                              <ClockCircleOutlined
-                                className={styles.clockIcon}
-                              />
-                              {smt}
-                            </p>
+                            <ClockCircleOutlined className={styles.clockIcon} />
+
+                            <p onClick={() => onOffSearch(smt)}>{smt}</p>
                           </div>
                         </div>
                       ))}
@@ -279,7 +260,7 @@ const PostHeader = () => {
                   ))}
                 </>
               ) : (
-                fulfilled?.map((items) => (
+                search.data?.map((items) => (
                   <div className={styles.suggestion}>
                     <p className={styles.well_known_word}>
                       <img src={items.imageUrls[0]} width={50} height={50} />
@@ -289,7 +270,9 @@ const PostHeader = () => {
                         to={`/detail/:${items.id}`}
                         className={styles.noTextDecoration}
                       >
-                        <p onClick={onOffSearch}>{items?.name}</p>
+                        <p onClick={() => onOffSearch(items?.name)}>
+                          {items?.name}
+                        </p>
                       </NavLink>
                     </div>
                   </div>
@@ -301,7 +284,7 @@ const PostHeader = () => {
       </div>
 
       <div
-        className={smt ? `${styles.catalogs} ${styles.hide}` : styles.catalogs}
+        className={visibility ? `${styles.catalogs} ${styles.hide}` : styles.catalogs}
       >
         <div className={styles.catalogs_inner}>
           <p>Все акций </p>

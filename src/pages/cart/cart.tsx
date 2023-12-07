@@ -15,51 +15,38 @@ import {
   Increament,
   Items,
 } from "../../store/slice/AddCart";
-import { fetchInFavor } from "../../store/thunk/AddFavoriteThunk";
-import { fetchBuy } from "../../store/thunk/BuyThunk";
-import { fetchCartDelete } from "../../store/thunk/DeleteCartThunk";
-import { fetchGetItem } from "../../store/thunk/GetItemThunk";
-import { fetchUserInfo } from "../../store/thunk/UserInfoThunk";
 import { useAppDispatch, useAppSelector } from "../../utils/helpers/Helpers";
+import { useAddFavorite, useBuy, useDeleteCart } from "../services/mutations";
+import { useFetchGetUserInfo, useGetCartItems } from "../services/queries";
 import styles from "./cart.module.scss";
 
 const Cart = () => {
   const dispatch = useAppDispatch();
-  const fulfilled = useAppSelector((state) => state.userInfo.true);
-  const data = useAppSelector((state) => state.cart.data);
+  const { data, refetch } = useFetchGetUserInfo();
+  const otherData = useAppSelector((state) => state.cart.data);
   const [open, setOpen] = useState(false);
   const items = useAppSelector((state) => state.cart.items);
-  const { status, error, isLoading } = useAppSelector((state) => state.buy);
+  const addFavor = useAddFavorite();
+  const order = useBuy();
+  const deleteCart = useDeleteCart();
+  const uniqueGoods = Array.from(new Set(data?.data.cart))
+  console.log(uniqueGoods)
+  const getCartItems = useGetCartItems({ arr: uniqueGoods as string[] });
 
-  console.log(status);
-  console.log(error);
-
+  console.log(getCartItems);
   let AllAmount = 0;
   let AllPrice = 0;
-  data.map((item) => {
+  otherData.map((item) => {
     AllAmount = item?.amount + AllAmount;
     AllPrice = item?.price + AllPrice;
   });
-
+  
   const showDrawer = () => {
     setOpen(true);
   };
 
   const onClose = () => {
-    if(!isLoading && !error && status){
-      setOpen(false)
-    }else{
-      if(!isLoading){
-        setOpen(false)
-      }
-    }
-  };
-
-  const onBtnClose = () => {
-    if (status && !error && !isLoading) {
-      setOpen(false);
-      console.log("1");
-    }
+    setOpen(false);
   };
 
   const onFinish = (values: {
@@ -69,17 +56,19 @@ const Cart = () => {
     phone: string;
     comment: string;
   }) => {
-    dispatch(
-      fetchBuy({
-        items,
+    order.mutate({
+      items,
+      details: {
         name: values.name,
         address: values.address,
         phone: values.phone,
         timeToDeliver: values.timeToDeliver,
         comment: values.comment,
-      })
-    );
-    onClose();
+      },
+    });
+
+    setOpen(false);
+    refetch();
   };
 
   const onIncrement = (id: string) => {
@@ -88,57 +77,39 @@ const Cart = () => {
   const onDiscrement = (id: string) => {
     dispatch(Discreament(id));
   };
+
   const onFetchCartDelete = (id: string) => {
-    dispatch(fetchCartDelete(id));
+    deleteCart.mutate(id);
+    refetch();
   };
   const onFavorites = (id: string) => {
-    dispatch(fetchInFavor(id));
+    addFavor.mutate({ id });
+    refetch();
   };
 
   useEffect(() => {
-    const newSet = new Set(fulfilled.data?.cart);
-    const uniqueGoods = Array.from(newSet);
-    if (fulfilled.data?.cart.length > 0) {
-      Promise.all(
-        uniqueGoods?.map((id: string) => {
-          console.log(id);
-          return dispatch(
-            fetchGetItem({
-              id: id,
-            })
-          );
-        })
-      )
-        .then((values) => {
-          return Promise.all(values.map((data) => data.payload));
-        })
-        .then((res) => {
-          dispatch(DataAdd(res));
-        });
-    }
-  }, [fulfilled.data?.cart, dispatch]);
+    dispatch(DataAdd(getCartItems));
+    dispatch(Items(getCartItems));
+  }, [data?.data.cart, dispatch, AllAmount]);
 
-  useEffect(() => {
-    dispatch(Items(data));
-  }, [AllAmount]);
-
-  useEffect(() => {
-    dispatch(fetchUserInfo());
-  }, [dispatch, status]);
   return (
     <div className={styles.box}>
       <h1>Kорзина</h1>
       <div className={styles.divider}></div>
-      {fulfilled.data?.cart.length > 0 ? (
+      {data?.data?.cart?.length > 0 ? (
         <div className={styles.good}>
           <div>
-            {data.map((item) =>
-              item?.isInCart === true ? (
+            {getCartItems.map((item) =>
+              item.data?.data.isInCart === true ? (
                 ""
               ) : (
                 <div className={styles.goodInner}>
                   <img
-                    src={item?.imageUrls?.length > 0 ? item?.imageUrls[0] : ""}
+                    src={
+                      item?.data?.data.imageUrls?.length > 0
+                        ? item?.data?.data.imageUrls[0]
+                        : ""
+                    }
                   />
                   <div className={styles.goodInnerPost}>
                     <div className={styles.goodInnerPostInner}>
@@ -149,27 +120,29 @@ const Cart = () => {
                       <div className={styles.btns}>
                         <button
                           className={
-                            item?.amount > 1
+                            item?.data?.data.amount > 1
                               ? styles.btn
                               : `${styles.btn} ${styles.active}`
                           }
-                          onClick={() => onDiscrement(item.id)}
-                          disabled={item.amount > 1 ? false : true}
+                          onClick={() => onDiscrement(item.data?.data.id)}
+                          disabled={item.data?.data.amount > 1 ? false : true}
                         >
                           <MinusOutlined
-                            className={item?.amount > 1 ? styles.black : ""}
+                            className={
+                              item?.data?.data.amount > 1 ? styles.black : ""
+                            }
                           />
                         </button>
-                        <p>{item?.amount}</p>
+                        <p>{item?.data?.data.amount}</p>
                         <button
                           className={styles.btn}
-                          onClick={() => onIncrement(item.id)}
+                          onClick={() => onIncrement(item.data?.data.id)}
                         >
                           <PlusOutlined className={styles.plusIcon} />
                         </button>
                       </div>
                       <p className={styles.priceText}>
-                        {Math.trunc(item?.price * 100) / 100}
+                        {item.data?.data.price}
                       </p>
                     </div>
                     <div className={styles.orderTime}>
@@ -184,21 +157,29 @@ const Cart = () => {
                     <div className={styles.AddDelete}>
                       <button
                         className={styles.delete}
-                        onClick={() => onFetchCartDelete(item.id)}
+                        onClick={() => onFetchCartDelete(item.data?.data.id)}
                       >
                         <DeleteOutlined className={styles.deleteIcon} />
                         Удалить
                       </button>
-
-                      <button
-                        className={item?.isFavorite ? styles.favor : styles.add}
-                        onClick={() => onFavorites(item.id)}
-                      >
-                        <HeartOutlined
-                          className={item?.isFavorite ? styles.favorIcon : ""}
-                        />
-                        В избранное
-                      </button>
+                      {data?.data?.favorites?.filter(
+                        (id: string) => id === item?.data?.data.id
+                      ).length > 0 ? (
+                        <button className={styles.favor}>
+                          <HeartOutlined className={styles.favorIcon} />В
+                          избранное
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() =>
+                            onFavorites(item.data?.data.id as string)
+                          }
+                          className={styles.add}
+                        >
+                          <HeartOutlined className={styles.addIcon} />В
+                          избранное
+                        </button>
+                      )}
                     </div>
                     <div className={styles.divider}></div>
                   </div>
@@ -321,8 +302,7 @@ const Cart = () => {
                   type="primary"
                   htmlType="submit"
                   className={styles.submitBtn}
-                  loading={isLoading}
-                  onClick={onBtnClose}
+                  loading={order.isLoading}
                 >
                   Submit
                 </Button>

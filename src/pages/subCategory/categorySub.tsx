@@ -1,39 +1,38 @@
-import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import {
-  setSortLowPrice,
-  setSortRating,
-} from "../../store/slice/GetSubCategory";
-import { fetchCart } from "../../store/thunk/AddCartThunk";
-import { fetchUserInfo } from "../../store/thunk/UserInfoThunk";
-import { useAppDispatch, useAppSelector } from "../../utils/helpers/Helpers";
+import { useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
+import { useFetchGetUserInfo, useFetchSubItems } from "../services/queries";
 import styles from "./categorySub.module.scss";
+import { useAddCart } from "../services/mutations";
+
 const SubCategoryItems = () => {
-  const goods = useAppSelector((state) => state.subItem.status);
-  const dispatch = useAppDispatch();
-  const userInfo = useAppSelector((state) => state.userInfo.true);
-  const [num, setNum] = useState<number>(0);
-  const func = () => {
-    setNum(num + 1);
-  };
+  
+  const { id, category } = useParams();
+  
+  const [sort, setSort] = useState<string>("price");
+  const { data, refetch } = useFetchGetUserInfo();
+  const addCart = useAddCart()
+  const subItems = useFetchSubItems({
+    id: id as string,
+    category: category as string,
+    sort: sort,
+  });
+  
+
   const onAddCart = (id: string) => {
-    dispatch(fetchCart({ id: id }));
-    func();
+    addCart.mutate({id})
+    refetch()
   };
 
   const onChange = (e: string) => {
     if (e === "rating") {
-      dispatch(setSortRating());
-      console.log(goods);
+      setSort("rating");
+    } else if (e === "price") {
+      setSort("price");
     } else {
-      dispatch(setSortLowPrice());
+      setSort("availableAmount");
     }
   };
 
-
-  useEffect(() => {
-    dispatch(fetchUserInfo());
-  }, [num]);
   return (
     <div className={styles.wrapper}>
       <div>
@@ -43,7 +42,7 @@ const SubCategoryItems = () => {
           </NavLink>
         </div>
         <div className={styles.goods}>
-          {goods?.data?.map((smt) => (
+          {subItems.data?.data.map((smt) => (
             <div className={styles.box}>
               <div className={styles.imgBox}>
                 <NavLink to={`/detail/:${smt.id}`}>
@@ -73,8 +72,7 @@ const SubCategoryItems = () => {
               <div className={styles.btns}>
                 <button
                   className={
-                    userInfo.data?.cart.filter((item) => item === smt.id)
-                      .length > 0
+                    data?.data.cart.filter((item) => item === smt.id).length > 0
                       ? styles.chosen
                       : styles.btn
                   }
@@ -100,7 +98,7 @@ const SubCategoryItems = () => {
             Сначало дешевые
           </option>
           <option value="" className={styles.option}>
-            Сначало дорогие
+            По доступности
           </option>
         </select>
       </div>

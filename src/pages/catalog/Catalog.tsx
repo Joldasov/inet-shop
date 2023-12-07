@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { changeDisplayFalse } from "../../store/slice/Search";
-import { fetchCatalog } from "../../store/thunk/CatalogThunk";
-import { fetchGetSubItems } from "../../store/thunk/SubItemsThunk";
-import { useAppDispatch, useAppSelector } from "../../utils/helpers/Helpers";
+
+import { useAppDispatch} from "../../utils/helpers/Helpers";
 import styles from "./catalog.module.scss";
+import { useFetchCategories } from "../services/queries";
 
 const Catalog = () => {
   const dispatch = useAppDispatch();
-  const categories = useAppSelector((state) => state.catalog.status);
+  const {data} = useFetchCategories()
   const [num, setNum] = useState<number>(0);
   const [category, setCategory] = useState("appliances");
+  console.log(data?.data)
   const categoryHandle = (name: string) => {
     if (name === "Appliances") {
       setNum(0);
@@ -29,17 +30,14 @@ const Catalog = () => {
     setCategory(id);
   };
 
-  const onNavLinkClick = (category: string, id: string) => {
-    dispatch(fetchGetSubItems({ category, id}));
+  const onNavLinkClick = () => {
     dispatch(changeDisplayFalse());
   };
-  useEffect(() => {
-    dispatch(fetchCatalog());
-  }, []);
+ 
   return (
     <div className={styles.wrapper}>
       <div className={styles.categories}>
-        {categories.map(
+        {data?.data.map(
           (item: {
             id: string;
             name: string;
@@ -60,9 +58,9 @@ const Catalog = () => {
         )}
       </div>
       <div className={styles.subCategories}>
-        {categories[num]?.subCategories.map(({ name, id }) => (
+        {data?.data[num]?.subCategories.map(({ name, id }) => (
           <NavLink
-            to="/subCategory"
+            to={`/subcategory/${id}/${category}`}
             className={styles.noTextDecoration}
             onClick={() => onNavLinkClick(category, id)}
           >

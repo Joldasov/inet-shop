@@ -4,43 +4,38 @@ import {
   PieChartOutlined,
   StarOutlined,
 } from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { fetchCart } from "../../store/thunk/AddCartThunk";
-import { fetchGetItem } from "../../store/thunk/GetItemThunk";
-import { fetchUserInfo } from "../../store/thunk/UserInfoThunk";
-import { useAppDispatch, useAppSelector } from "../../utils/helpers/Helpers";
 import styles from "./details.module.scss";
+import { useFetchGetItem, useFetchGetUserInfo } from "../services/queries";
+import { useAddCart } from "../services/mutations";
 
 const Detail = () => {
   const { name } = useParams();
-  const dispatch = useAppDispatch();
   const id = name?.slice(1);
-  const fulfilled = useAppSelector((state) => state.get.status);
-  const userInfo = useAppSelector((state) => state.userInfo.true);
+  const addCart = useAddCart()
+  const {data, refetch} = useFetchGetUserInfo()
   const [num, setNum] = useState(0);
+  const getItemData = useFetchGetItem({id: id as string})
 
   const onClick = () => {
     setNum(num + 1);
   };
   const onAddCart = (id: string) => {
-    dispatch(fetchCart({id}));
+    addCart.mutate({id: id})
     onClick();
+    refetch()
   };
-  useEffect(() => {
-    dispatch(fetchGetItem({ id }));
-  }, [name, num]);
 
-  useEffect(() => {
-    dispatch(fetchUserInfo());
-  }, [num]);
+ 
+ 
 
   return (
     <div className={styles.wrapper}>
       <NavLink to="/">
         <p>Главная</p>
       </NavLink>
-      <h1 className={styles.name}>{fulfilled?.name}</h1>
+      <h1 className={styles.name}>{getItemData.data?.name}</h1>
       <div className={styles.details}>
         <div className={styles.box0}>
           <button className={styles.playBtn}>
@@ -49,7 +44,7 @@ const Detail = () => {
           <button className={styles.imgBtn}>
             <img
               src={
-                fulfilled?.imageUrls?.length > 0 ? fulfilled.imageUrls[0] : ""
+                getItemData.data?.imageUrls?.length > 0 ? getItemData.data.imageUrls[0] : ""
               }
               width={65}
               height={65}
@@ -57,21 +52,21 @@ const Detail = () => {
           </button>
         </div>
         <img
-          src={fulfilled?.imageUrls?.length > 0 ? fulfilled.imageUrls[0] : ""}
+          src={getItemData.data?.imageUrls?.length > 0 ? getItemData.data.imageUrls[0] : ""}
           
         />
         <div className={styles.price}>
           <h1>
-            {fulfilled?.price} <span> р.</span>
+            {getItemData.data?.price} <span> р.</span>
           </h1>
           <p>
             <PieChartOutlined className={styles.checkAndPieIcon} />
-            От {Math.floor(fulfilled?.price / 12)} р./месяц
+            От {Math.floor(getItemData.data?.price / 12)} р./месяц
             <br /> при оплате частями
           </p>
           <p>
             <CheckCircleOutlined className={styles.checkAndPieIcon} />В наличий{" "}
-            {fulfilled.availableAmount} штук
+            {getItemData.data?.availableAmount} штук
           </p>
         </div>
         <div className={styles.add}>
@@ -79,11 +74,11 @@ const Detail = () => {
             <StarOutlined />
             Добавить в избранное
           </button>
-          {userInfo.data?.cart.filter((item) => item === fulfilled.id).length >
+          {data?.data?.cart.filter((item) => item === getItemData.data?.id).length >
           0 ? (
             <NavLink to="/basket">
               <button
-                onClick={() => onAddCart(id) }
+                onClick={() => onAddCart(id as string) }
                 className={styles.added}
               >
                 В корзину
@@ -91,7 +86,7 @@ const Detail = () => {
             </NavLink>
           ) : (
             <button
-              onClick={() => onAddCart(id)}
+              onClick={() => onAddCart(id as string)}
               className={styles.cart}
             >
               В корзину
@@ -101,7 +96,7 @@ const Detail = () => {
       </div>
       <div className={styles.moreDetails}>
         <h1>О таваре</h1>
-        <p>{fulfilled?.description}</p>
+        <p>{getItemData.data?.description}</p>
       </div>
     </div>
   );

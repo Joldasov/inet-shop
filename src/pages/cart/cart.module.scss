@@ -153,7 +153,8 @@ body {
       }
     }
     .AddDelete {
-      text-align: right;
+      display: flex;
+      justify-content: right;
       padding-top: 20px;
       padding-bottom: 20px;
       .delete {
@@ -170,19 +171,15 @@ body {
         background-color: white;
         border: none;
         font-size: 18px;
+        margin-right: 5px;
+
         &:hover {
           color: #e52e6b;
           cursor: pointer;
         }
-      }
-      .favor {
-        background-color: white;
-        border: none;
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-        color: #e52e6b;
-        cursor: pointer;
+        .addIcon {
+          margin-right: 5px;
+        }
       }
     }
   }
@@ -192,6 +189,15 @@ body {
   fill: #cf2d63;
   align-items: center;
   display: flex;
+  margin-right: 5px;
+}
+.favor {
+  background-color: white;
+  border: none;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  color: #e52e6b;
 }
 
 .ant-drawer .ant-drawer-header {
@@ -271,11 +277,11 @@ body {
     background-color: #e52e6b;
   }
 }
-.form{
+.form {
   max-width: 900px;
   margin-left: 20px;
   max-height: 600px;
-  .formItem{
+  .formItem {
     text-align: center;
     margin-top: 50px;
     display: flex;

@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchSearch } from "../thunk/SearchThunk";
-import { sliceNames } from "../../utils/const/SliceNames";
+
 
 export interface searchState {
   error: string;
@@ -8,7 +7,7 @@ export interface searchState {
   status: [];
   text: string;
   recent: [];
-  smt: boolean;
+  visibility: boolean;
 }
 
 const initialState: searchState = {
@@ -17,17 +16,17 @@ const initialState: searchState = {
   status: [],
   text: "",
   recent: [],
-  smt: false,
+  visibility: false,
 };
 
 export const Search = createSlice({
-  name: sliceNames.USER_SEARCH,
+  name: 'search',
   initialState,
   reducers: {
     addSearch: (state, action: { payload: string; type: string }) => {
       state.text = action.payload;
     },
-    addRecent: (state, action: { payload: string; type: string }) => {
+    addRecent: (state, action) => {
       state.recent.push(action.payload);
     },
     reset: (state) => {
@@ -37,24 +36,10 @@ export const Search = createSlice({
       state.text = "";
     },
     changeDisplayFalse: (state) => {
-      state.smt = false;
+      state.visibility = false;
     },
     changeDisplayTrue: (state) => {
-      state.smt = true;
-    },
-  },
-  extraReducers: {
-    [fetchSearch.pending.type]: (state) => {
-      state.isLoading = true;
-    },
-    [fetchSearch.fulfilled.type]: (state, action) => {
-      state.status = action.payload;
-      state.error = "";
-      state.isLoading = false;
-    },
-    [fetchSearch.rejected.type]: (state, action) => {
-      state.error = action.payload;
-      state.isLoading = false;
+      state.visibility = true;
     },
   },
 });

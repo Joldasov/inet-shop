@@ -1,28 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { addArray } from "../../../../store/slice/Goods";
-import { fetchCart } from "../../../../store/thunk/AddCartThunk";
-import {
-  fetchApplience,
-  fetchGoodsComputers_peripherals,
-  fetchGoodsElectronics,
-  fetchGoodsFurniture,
-  fetchGoodsHobbies,
-} from "../../../../store/thunk/GoodsThunk";
-import { fetchUserInfo } from "../../../../store/thunk/UserInfoThunk";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "../../../../utils/helpers/Helpers";
+import { useAddCart } from "../../../services/mutations";
+import { useFetchGetUserInfo, useGetItems } from "../../../services/queries";
 import styles from "./popularGoods.module.scss";
-import { GoodsNames } from "./utils/const/GoodsNames";
+
 const PopularGoods = () => {
   const [height, setHeight] = useState<number>(914);
-  const [fulfilled, setFufilled] = useState([]);
-  const dispatch = useAppDispatch();
   const [sort, setSort] = useState<string>("item");
-  const [num, setNum] = useState<number>(0);
-  const userInfo = useAppSelector((state) => state.userInfo.true);
+  const { data, refetch } = useFetchGetUserInfo();
+  const arr = ["computers-peripherals", "electronics", "furniture", "hobbies"];
+  const getItems = useGetItems({ arr, sort });
+
+  const addCart = useAddCart();
 
   const onAddHeigth = () => {
     if (height > 1306) {
@@ -33,35 +22,9 @@ const PopularGoods = () => {
   };
 
   const onAddCart = (id: string) => {
-    dispatch(fetchCart({ id: id }));
-    func();
+    addCart.mutate({ id });
+    refetch();
   };
-
-  const func = () => {
-    setNum(num + 1);
-  };
-
-  useEffect(() => {
-    dispatch(fetchUserInfo());
-  }, [num]);
-
-  useEffect(() => {
-    async function fetchData() {
-      await Promise.all([
-        dispatch(
-          fetchGoodsComputers_peripherals({ comp: GoodsNames.comp, sort })
-        ),
-        dispatch(fetchGoodsElectronics({ elec: GoodsNames.elec, sort })),
-        dispatch(fetchGoodsFurniture({ fur: GoodsNames.fur, sort })),
-        dispatch(fetchGoodsHobbies({ hobby: GoodsNames.hobby, sort })),
-        dispatch(fetchApplience({ app: GoodsNames.app, sort })),
-      ]).then((values) => {
-        setFufilled(values);
-        dispatch(addArray(values));
-      });
-    }
-    fetchData();
-  }, [sort, dispatch]);
 
   return (
     <div className={styles.wrapper}>
@@ -103,8 +66,8 @@ const PopularGoods = () => {
         </button>
       </div>
       <div className={styles.goods} style={{ height: `${height}px` }}>
-        {fulfilled?.map((item) =>
-          item.payload?.data.map((smt) => (
+        {getItems?.map((item) =>
+          item.data?.data.map((smt) => (
             <div className={styles.box}>
               <div className={styles.imgBox}>
                 <NavLink to={`/detail/:${smt.id}`}>
@@ -134,8 +97,8 @@ const PopularGoods = () => {
               <div className={styles.inCart}>
                 <button
                   className={
-                    userInfo.data?.cart.filter((item) => item === smt.id)
-                      .length > 0
+                    data?.data?.cart.filter((item: string) => item === smt.id).length >
+                    0
                       ? styles.chosen
                       : styles.btn
                   }
